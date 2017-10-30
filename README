@@ -1,0 +1,3 @@
+Prerequisites:
+    - python2
+    - flask (pip install Flask / c9: sudo easy_install Flask)
