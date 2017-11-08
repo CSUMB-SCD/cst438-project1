@@ -1,11 +1,16 @@
 import os
 from flask import Flask, render_template
+from flask_socketio import SocketIO, send, emit
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mysecret'
+socketio = SocketIO(app)
 
-@app.route('/')
-def home():
-    return render_template('home.html')
+@socketio.on('message')
+def handleMessage(msg):
+    send(msg, broadcast=True)
+    print('Message: ' + str(msg)) #error happens here.
     
-#this run command is specific to C9. Otherwise, you should be able it without arguments
-app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)))
+    
+if __name__ == '__main__':
+    socketio.run(app)
