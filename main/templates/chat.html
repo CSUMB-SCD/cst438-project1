@@ -1,3 +1,5 @@
+<!-- this file could be used later when we better understand socket.io -->
+
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -30,6 +32,7 @@
 		<div>
 			<script type="text/javascript">  
 				$(document).ready(function(){
+				   namespace = '/chat';	
 				   var socket = io.connect('http://127.0.0.1:5000');
 				   
 				   socket.on('connect', function(){ 
@@ -39,7 +42,7 @@
 				   socket.on('message', function(msg){
 				       $("#messages").append('<li>'+msg+'</li>');
 				       console.log(msg);
-				   })
+				   }) 
 				   
 				   $('#sendbutton').on('click', function(){
 				      socket.send($('#myMessages').val());

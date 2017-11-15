@@ -1,3 +1,6 @@
 Prerequisites:
     - python2
     - flask (pip install Flask / c9: sudo easy_install Flask)
+
+To run, go to terminal where app.py is located and put in: FLASK_APP=app.py flask run
+Click on the link the pops up from the terminal (i.e. http://127.0.0.1:5000/ which is == http://localhost:5000)
