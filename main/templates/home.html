@@ -47,14 +47,14 @@
                 myTable+=ourData['results']['results'][i]['title'];
                 myTable+='</td>';
                 myTable+='<td>';
-                myTable+=ourData['results']['results'][i]['href'];
+                myTable+='<a href='+'"'+ourData['results']['results'][i]['href']+'"'+'>'+ourData['results']['results'][i]['href']+'</a>';
                 myTable+='</td>';
                 myTable+='<td>';
                 myTable+=ourData['results']['results'][i]['ingredients'];
                 myTable+='</td>';
                 myTable+='<td>';
-                myTable+=ourData['results']['results'][i]['thumbnail'];
-                //  myTable+='<img src='+'"'+ourData['results']['results'][i]['thumbnail'];+'"'+'width='+'"'+'400'+'"'+'height='+'"'+'300'+'"'+'>'+'</img>';
+                // myTable+=ourData['results']['results'][i]['thumbnail'];
+                myTable+='<img src='+'"'+ourData['results']['results'][i]['thumbnail']+'"'+'>';
                 myTable+='</td>';
                myTable+='</tr>';
             }
@@ -69,10 +69,12 @@
 // }
 </script>
 <h1>Hello Welcome to Recipe Finder</h1>
+<p>Note:Please enter commas to seperate multipe ingredients. Ex (salt,sugar)</p>
 <button id="search" onclick="loadKnowlegebase()">Search</button>
  <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="Enter an ingredient" id="query" name="name" />
         <datalist id="mylist">
            </datalist>
        <div id="tablePrint"> </div>
+       <!--<img src="http://img.recipepuppy.com/622460.jpg">-->
 
 {% endblock %}
