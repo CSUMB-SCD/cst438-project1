@@ -22,14 +22,14 @@ def results(results_id):
 	    return jsonify({'results': jsonObject})
     except URLError, e:
         print ' Got an error code:', e
-        
-        
-        
     
     # jsonObj = request.json
     # dataDict = json.dumps(jsonObj)
     # data = json.loads(dataDict) 
     # console.log(data)
- 
+@app.route('/login')
+def login():
+	return render_template('login.html') 
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080, debug=True)

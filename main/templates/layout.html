@@ -14,9 +14,13 @@
 </head>
 
 <body>
-    {% include 'includes/_navbar.html' %}
+    {% include 'includes/GuestNavBar.html' %}
     <div class="container">
-        {% block body %}{% endblock %}
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
     </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
