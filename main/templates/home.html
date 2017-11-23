@@ -3,28 +3,76 @@
     <script>
 
     // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
-    var loadKnowlegebase = function(){
-    var ourRequest= new XMLHttpRequest();
-    ourRequest.open('GET','http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
-        // alert("inside");
-    // ourRequest.open('GET',url);
-    ourRequest.onload=function(){
-        var ourData=ourRequest.responseText;
-    alert("hello");
-    console.log(ourData[0]);
-}
- ourRequest.send();
+        var loadKnowlegebase = function(){
+            let userValue = document.getElementById("query").value;
+            console.log("userValue ", userValue);
+            
+            var ourRequest= new XMLHttpRequest();
+            // ourRequest.open('GET','http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
+            ourRequest.open('GET','/todo/api/v0.1/results/' + userValue)
+            // ourRequest.open('GET',url);
+            ourRequest.send();
+            ourRequest.onreadystatechange=function(){
+                if(ourRequest.readyState == XMLHttpRequest.DONE && ourRequest.status == 200) {
+                    var ourData=ourRequest.responseText;
+                    console.log("ourData ", ourData);
+                    var json = JSON.parse(ourData);
 
-}
+                    display(json);
+                }
+            };
 
-window.onload = function(){
-    // loadKnowlegebase();
-}
+        };
+        var display=function(ourData){
+            var show=document.getElementById("tablePrint");
+            var myTable='<table>'
+            let displayText = '';
+                myTable+='<th>';
+                myTable+='title';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='href';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='ingredients';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='thumbnail';
+                myTable+='</th>';
+                      
+            for(var i=0;i<10;i++){
+
+                myTable+='<tr>';  
+                myTable+='<td>';
+                myTable+=ourData['results']['results'][i]['title'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['results']['results'][i]['href'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['results']['results'][i]['ingredients'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['results']['results'][i]['thumbnail'];
+                //  myTable+='<img src='+'"'+ourData['results']['results'][i]['thumbnail'];+'"'+'width='+'"'+'400'+'"'+'height='+'"'+'300'+'"'+'>'+'</img>';
+                myTable+='</td>';
+               myTable+='</tr>';
+            }
+             
+            myTable+='</table>';
+            document.getElementById('tablePrint').innerHTML = myTable;
+
+        }
+
+// window.onload = function(){
+//      loadKnowlegebase();
+// }
 </script>
 <h1>Hello Welcome to Recipe Finder</h1>
-<button id="search">Search</button>
+<button id="search" onclick="loadKnowlegebase()">Search</button>
  <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="Enter an ingredient" id="query" name="name" />
         <datalist id="mylist">
            </datalist>
+       <div id="tablePrint"> </div>
 
 {% endblock %}
