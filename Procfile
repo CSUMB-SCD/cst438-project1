@@ -1,2 +1,1 @@
-web: export FLASK_APP=main/app.py
-web: python -m flask run
+web: python main/app.py
