@@ -1,6 +1,7 @@
 from flask import Flask, render_template,jsonify,request
 from urllib2 import Request, urlopen, URLError
 # import requests
+import os
 from flask_cors import CORS
 import json
  
@@ -32,10 +33,10 @@ def login():
 	return render_template('login.html') 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080, debug=True)
-    # app.run(
-    # port=int(os.getenv('PORT', 8080)),
-    # host=os.getenv('IP', '0.0.0.0'),
-    # debug=True
-    # )
+    # app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(
+    port=int(os.getenv('PORT', 8080)),
+    host=os.getenv('IP', '0.0.0.0'),
+    debug=True
+    )
 
