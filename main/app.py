@@ -32,7 +32,7 @@ def login():
 	return render_template('login.html') 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=33507, debug=True)
     # app.run(
     # port=int(os.getenv('PORT', 8080)),
     # host=os.getenv('IP', '0.0.0.0'),
