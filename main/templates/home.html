@@ -23,9 +23,11 @@
             };
 
         };
+
         var display=function(ourData){
             var show=document.getElementById("tablePrint");
             var myTable='<table>'
+            myTable+='<caption>Recipes</caption>';
             let displayText = '';
                 myTable+='<th>';
                 myTable+='title';
@@ -39,9 +41,8 @@
                 myTable+='<th>';
                 myTable+='thumbnail';
                 myTable+='</th>';
-                      
-            for(var i=0;i<10;i++){
-
+                //alert(ourData['results']['results'].length);
+            for(var i=0;i<ourData['results']['results'].length;i++){
                 myTable+='<tr>';  
                 myTable+='<td>';
                 myTable+=ourData['results']['results'][i]['title'];
