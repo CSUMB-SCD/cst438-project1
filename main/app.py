@@ -12,16 +12,16 @@ def home():
   # have to use the server to make an api call here include url in the post method
 @app.route('/todo/api/v0.1/results/<results_id>',methods=['GET'])
 def results(results_id):
-    print (results_id)
+    print results_id
     request = Request('http://www.recipepuppy.com/api/?i=' + results_id)
     try:
 	    response = urlopen(request)
 	    receipe = response.read()
 	    jsonObject = json.loads(receipe)
-	    print(jsonObject['results'])
+	    print jsonObject['results']
 	    return jsonify({'results': jsonObject})
     except URLError, e:
-        print(' Got an error code:', e)
+        print ' Got an error code:', e
     
     # jsonObj = request.json
     # dataDict = json.dumps(jsonObj)
