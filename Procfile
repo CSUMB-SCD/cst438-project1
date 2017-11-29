@@ -1,2 +1,2 @@
-web: python app.py
-export FLASK_APP=app.py
+web: python main/app.py
+export FLASK_APP=main/app.py
