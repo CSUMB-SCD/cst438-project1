@@ -14,7 +14,7 @@ def home():
 @app.route('/todo/api/v0.1/results/<results_id>',methods=['GET'])
 def results(results_id):
     print results_id
-    request = Request('www.recipepuppy.com/api/?i=' + results_id)
+    request = Request('http://www.recipepuppy.com/api/?i=' + results_id)
     try:
 	    response = urlopen(request)
 	    receipe = response.read()
