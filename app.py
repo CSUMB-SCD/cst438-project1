@@ -8,7 +8,7 @@ import json
 app = Flask(__name__)
 CORS(app)
 @app.route('/')
-def home():
+def login():
   return render_template('login.html')
   # have to use the server to make an api call here include url in the post method
 @app.route('/todo/api/v0.1/results/<results_id>',methods=['GET'])
@@ -28,8 +28,8 @@ def results(results_id):
     # dataDict = json.dumps(jsonObj)
     # data = json.loads(dataDict) 
     # console.log(data)
-@app.route('/guestHome')
-def login():
+@app.route('/?')
+def guestHome():
 	return render_template('home.html') 
 
 if __name__ == "__main__":
