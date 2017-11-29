@@ -28,7 +28,7 @@ def results(results_id):
     # dataDict = json.dumps(jsonObj)
     # data = json.loads(dataDict) 
     # console.log(data)
-@app.route('/?')
+@app.route('/guestHome')
 def guestHome():
 	return render_template('home.html') 
 
