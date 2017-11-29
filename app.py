@@ -30,7 +30,7 @@ def results(results_id):
     # console.log(data)
 @app.route('/guestHome')
 def guestHome():
-	return render_template('home.html') 
+	return render_template('guestHome.html') 
 
 if __name__ == "__main__":
     # app.run(host='0.0.0.0', port=int(8080), debug=True)
