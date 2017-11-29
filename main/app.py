@@ -18,10 +18,10 @@ def results(results_id):
 	    response = urlopen(request)
 	    receipe = response.read()
 	    jsonObject = json.loads(receipe)
-	    print jsonObject['results']
+	    print(jsonObject['results'])
 	    return jsonify({'results': jsonObject})
     except URLError, e:
-        print ' Got an error code:', e
+        print(' Got an error code:', e)
     
     # jsonObj = request.json
     # dataDict = json.dumps(jsonObj)
