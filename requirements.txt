@@ -1,5 +1,5 @@
-Flask==0.12.x
-python==2.7.x
+Flask==0.12.2
+python==2.7.12
 Flask-Cors==3.0.3
 Flask-Login==0.4.0
 Flask-Session==0.3.1
