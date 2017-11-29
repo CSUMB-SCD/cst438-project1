@@ -1,6 +1,6 @@
 from flask import Flask, render_template,jsonify,request
 from urllib2 import Request, urlopen, URLError
-import requests
+# import requests
 from flask_cors import CORS
 import json
  
