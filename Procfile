@@ -1,2 +1,1 @@
-web: python main/app.py
-export FLASK_APP=main/app.py
+web: gunicorn app:app
