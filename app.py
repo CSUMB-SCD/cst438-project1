@@ -7,6 +7,9 @@ import json
  
 app = Flask(__name__)
 CORS(app)
+@app.route('/nutrition')
+def nutrition():
+    return render_template('guestNutrition.html')
 @app.route('/')
 def login():
   return render_template('login.html')
@@ -33,9 +36,9 @@ def guestHome():
 	return render_template('guestHome.html') 
 
 if __name__ == "__main__":
-    # app.run(host='0.0.0.0', port=int(8080), debug=True)
-    app.run(
-    host=os.getenv('IP', '0.0.0.0'),
-    port=int(os.getenv('PORT', 8080)),
-    debug=True
-    )
+    app.run(host='0.0.0.0', port=int(8080), debug=True)
+    # app.run(
+    # host=os.getenv('IP', '0.0.0.0'),
+    # port=int(os.getenv('PORT', 8080)),
+    # debug=True
+    # )

@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <script>
+
+    // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
+        var loadKnowlegebase = function(){
+            let userValue = document.getElementById("query").value;
+            console.log("userValue ", userValue);
+            
+            var ourRequest= new XMLHttpRequest();
+            // ourRequest.open('GET','http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
+            ourRequest.open('GET','/todo/api/v0.1/results/' + userValue)
+            // ourRequest.open('GET',url);
+            ourRequest.send();
+            ourRequest.onreadystatechange=function(){
+                if(ourRequest.readyState == XMLHttpRequest.DONE && ourRequest.status == 200) {
+                    var ourData=ourRequest.responseText;
+                    console.log("ourData ", ourData);
+                    var json = JSON.parse(ourData);
+
+                    display(json);
+                }
+            };
+
+        };
+
+        var display=function(ourData){
+            var show=document.getElementById("tablePrint");
+            var myTable='<table>'
+            myTable+='<caption>Recipes</caption>';
+            let displayText = '';
+                myTable+='<th>';
+                myTable+='title';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='href';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='ingredients';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='thumbnail';
+                myTable+='</th>';
+                //alert(ourData['results']['results'].length);
+            for(var i=0;i<ourData['results']['results'].length;i++){
+                myTable+='<tr>';  
+                myTable+='<td>';
+                myTable+=ourData['results']['results'][i]['title'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+='<a href='+'"'+ourData['results']['results'][i]['href']+'"'+'>'+ourData['results']['results'][i]['href']+'</a>';
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['results']['results'][i]['ingredients'];
+                myTable+='</td>';
+                myTable+='<td>';
+                // myTable+=ourData['results']['results'][i]['thumbnail'];
+                myTable+='<img src='+'"'+ourData['results']['results'][i]['thumbnail']+'"'+'>';
+                myTable+='</td>';
+               myTable+='</tr>';
+            }
+             
+            myTable+='</table>';
+            document.getElementById('tablePrint').innerHTML = myTable;
+
+        }
+
+// window.onload = function(){
+//      loadKnowlegebase();
+// }
+</script>
+<h1>Hello Welcome to Nutrition Finder</h1>
+<button id="nutrition"onclick="loadNutrition()">Nutrition</button>
+ <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="Search Nutrition" id="nutrition" name="name" />
+       <div id="tablePrint"> </div>
+       <!--<img src="http://img.recipepuppy.com/622460.jpg">-->
+
+{% endblock %}
