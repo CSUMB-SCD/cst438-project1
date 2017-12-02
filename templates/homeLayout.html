@@ -126,6 +126,9 @@
     </script>
 </head>
 <body>
-	{% block body %}{% endblock %}
+	{% include 'includes/GuestNavBar.html' %}
+	<div class="container">
+		{% block body %}{% endblock %}
+	</div>
 </body>
 </html>
