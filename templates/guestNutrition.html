@@ -100,7 +100,7 @@
         }
 var display2 = function(ourData){
             var clear='';
-            document.getElementById('tablePrint').innerHTML=clear;
+            // document.getElementById('tablePrint').innerHTML=clear;
             var myTable='<table class="highlight">';
             // myTable+='<caption>Nutrition Facts</caption>';
                 myTable+='<thead>';
@@ -195,8 +195,9 @@ document.getElementById("query2").style.display='none';
  <input   data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Enter Item ID"style="font-family:Arial, FontAwesome" id="query2" name="name" />
 </div>
 <div class="card-panel dark grey lighten-2">
-       <div id="tablePrint"> </div>
        <div id="tablePrint2"> </div>
+       <div id="tablePrint"> </div>
+       
        </div>
 
 {% endblock %}
