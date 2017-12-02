@@ -9,7 +9,7 @@
         
         var ourRequest= new XMLHttpRequest();
         // ourRequest.open('GET','http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
-        ourRequest.open('GET','/todo/api/v0.1/results/' + userValue)
+        ourRequest.open('GET','/todo/api/v0.1/results/' + userValue);
         // ourRequest.open('GET',url);
         ourRequest.send();
         ourRequest.onreadystatechange=function(){
@@ -25,8 +25,8 @@
     };
 
     var display=function(ourData){
-        var show=document.getElementById("tablePrint");
-        var myTable='<table class="highlight">'
+        // var show=document.getElementById("tablePrint");
+        var myTable='<table class="highlight">';
         // myTable+='<caption>Recipes</caption>';
         // let displayText = '';
             myTable+='<thead>';
@@ -70,13 +70,14 @@
         myTable+='</table>';
         document.getElementById('tablePrint').innerHTML = myTable;
 
-    }
+    };
 
 // window.onload = function(){
 //      loadKnowlegebase();
 // }
 </script>
-<h1>Welcome to Recipe Finder</h1>
+<div class="wrap">
+<!--<h1>Welcome to Recipe Finder</h1>-->
 <div class="card-panel green lighten-2">
 <p>Note: Please enter commas to seperate multipe ingredients. (i.e. salt,sugar)</p>
 <!--<button id="search" onclick="loadKnowlegebase()">Search</button>-->
@@ -86,6 +87,7 @@
  <div class="card-panel dark grey lighten-2">
        <div id="tablePrint"> </div>
        <!--<img src="http://img.recipepuppy.com/622460.jpg">-->
+       </div>
        </div>
 
 {% endblock %}

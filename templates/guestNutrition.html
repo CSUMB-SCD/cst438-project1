@@ -30,8 +30,8 @@
         };
 
         var display=function(ourData){
-            var show=document.getElementById("tablePrint");
-            var myTable='<table class ="highlight">'
+            //var show=document.getElementById("tablePrint");
+            var myTable='<table class ="highlight">';
             // myTable+='<caption>Nutrition</caption>';
             // let displayText = '';
                 myTable+='<thead>';
@@ -79,7 +79,7 @@
             myTable+='</table>';
             document.getElementById('tablePrint').innerHTML = myTable;
 
-        }
+        };
         var getNutritionFacts = function(){
             let userValue = document.getElementById("query2").value;
             console.log("userValue ", userValue);
@@ -99,7 +99,7 @@
             };
         }
 var display2 = function(ourData){
-            var clear='';
+            //var clear='';
             // document.getElementById('tablePrint').innerHTML=clear;
             var myTable='<table class="highlight">';
             // myTable+='<caption>Nutrition Facts</caption>';
@@ -176,13 +176,14 @@ var display2 = function(ourData){
              
             myTable+='</table>';
             document.getElementById('tablePrint2').innerHTML = myTable;
-}
+};
 window.onload=function(){
   document.getElementById("button").style.display='none';
 document.getElementById("query2").style.display='none';
-}
+};
 </script>
-<h1>Nutrition Facts</h1>
+<!--<h1>Nutrition Facts</h1>-->
+<div class="wrap">
 <div class="card-panel green lighten-2">
 <!--<button id="nutrition"onclick="loadNutrition()">Search</button>-->
 <a id="nutrition"class="btn btn-floating pulse"onclick="loadNutrition()"><i class="material-icons">search</i></a>
@@ -198,6 +199,7 @@ document.getElementById("query2").style.display='none';
        <div id="tablePrint2"> </div>
        <div id="tablePrint"> </div>
        
+       </div>
        </div>
 
 {% endblock %}
