@@ -3,7 +3,7 @@
 <script> 
 
     // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
-    var loadKnowlegebase = function(){
+    var loadResults = function(){
         let userValue = document.getElementById("query").value;
         console.log("userValue ", userValue);
         
@@ -26,9 +26,11 @@
 
     var display=function(ourData){
         var show=document.getElementById("tablePrint");
-        var myTable='<table>'
-        myTable+='<caption>Recipes</caption>';
-        let displayText = '';
+        var myTable='<table class="highlight">'
+        // myTable+='<caption>Recipes</caption>';
+        // let displayText = '';
+            myTable+='<thead>';
+            myTable+='<tr>';
             myTable+='<th>';
             myTable+='title';
             myTable+='</th>';
@@ -41,6 +43,10 @@
             myTable+='<th>';
             myTable+='thumbnail';
             myTable+='</th>';
+            myTable+='</tr>';
+            myTable+='</thead>';
+            myTable+='<tbody>';
+    
             //alert(ourData['results']['results'].length);
         for(var i=0;i<ourData['results']['results'].length;i++){
             myTable+='<tr>';  
@@ -59,6 +65,7 @@
             myTable+='</td>';
            myTable+='</tr>';
         }
+        myTable+='</tbody>';
          
         myTable+='</table>';
         document.getElementById('tablePrint').innerHTML = myTable;
@@ -70,10 +77,15 @@
 // }
 </script>
 <h1>Welcome to Recipe Finder</h1>
+<div class="card-panel green lighten-2">
 <p>Note: Please enter commas to seperate multipe ingredients. (i.e. salt,sugar)</p>
-<button id="search" onclick="loadKnowlegebase()">Search</button>
- <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="Enter an ingredient" id="query" name="name" />
+<!--<button id="search" onclick="loadKnowlegebase()">Search</button>-->
+<a id="search"onclick="loadResults()"class="btn btn-floating pulse"><i class="material-icons">search</i></a>
+ <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Enter an Ingredient"style="font-family:Arial, FontAwesome" id="query" name="name" />
+ </div>
+ <div class="card-panel dark grey lighten-2">
        <div id="tablePrint"> </div>
        <!--<img src="http://img.recipepuppy.com/622460.jpg">-->
+       </div>
 
 {% endblock %}

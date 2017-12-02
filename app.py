@@ -10,9 +10,15 @@ CORS(app)
 @app.route('/nutrition')
 def nutrition():
     return render_template('guestNutrition.html')
+@app.route('/login')
+def login2():
+    return render_template('login.html')
 @app.route('/')
 def login():
   return render_template('login.html')
+@app.route('/guest')
+def guest():
+    return render_template('guestHome.html')
   # have to use the server to make an api call here include url in the post method
 @app.route('/todo/api/v0.1/results/<results_id>',methods=['GET'])
 def results(results_id):
