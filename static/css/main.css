@@ -14,9 +14,9 @@ input[type=text] {
 /*html{
     background-color: #F0F8FF;
 }*/
-input[type=text]:focus {
-    width: 100%;
-}
+/*input[type=text]:focus {*/
+/*    width: 100%;*/
+/*}*/
 table {
     font-family: arial, sans-serif;
      border-collapse: collapse;
