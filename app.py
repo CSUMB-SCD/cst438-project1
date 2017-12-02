@@ -26,11 +26,18 @@ def results(results_id):
 	    return jsonify({'results': jsonObject})
     except URLError, e:
         print ' Got an error code:', e
-    
-    # jsonObj = request.json
-    # dataDict = json.dumps(jsonObj)
-    # data = json.loads(dataDict) 
-    # console.log(data)
+@app.route('/nutritionApi/v1_1/search/<phrase>',methods=['GET'])
+def nutritionApi(phrase):
+    print phrase
+    request=Request('https://api.nutritionix.com/v1_1/search/'+phrase+'?appId='+os.environ['appId']+'&appKey='+os.environ['appKey'])
+    try:
+        response=urlopen(request)
+        nutrition=response.read()
+        jsonObject=json.loads(nutrition)
+        print jsonObject['hits']
+        return jsonify({'hits':jsonObject})
+    except URLError, e:
+        print ' Got an error code:', e
 @app.route('/guestHome')
 def guestHome():
 	return render_template('guestHome.html') 

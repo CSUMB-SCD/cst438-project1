@@ -3,13 +3,14 @@
     <script>
 
     // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
-        var loadKnowlegebase = function(){
+        var loadNutrition = function(){
+            //alert("inside");
             let userValue = document.getElementById("query").value;
             console.log("userValue ", userValue);
             
             var ourRequest= new XMLHttpRequest();
             // ourRequest.open('GET','http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
-            ourRequest.open('GET','/todo/api/v0.1/results/' + userValue)
+            ourRequest.open('GET','https://api.nutritionix.com/v1_1/search/'+userValue+'?appId=62a70248'+'&appKey=4c6269d3d4c26690f9511d2103eccc48');
             // ourRequest.open('GET',url);
             ourRequest.send();
             ourRequest.onreadystatechange=function(){
@@ -27,35 +28,41 @@
         var display=function(ourData){
             var show=document.getElementById("tablePrint");
             var myTable='<table>'
-            myTable+='<caption>Recipes</caption>';
+            myTable+='<caption>Nutrition</caption>';
             let displayText = '';
                 myTable+='<th>';
-                myTable+='title';
+                myTable+='Item Id';
                 myTable+='</th>';
                 myTable+='<th>';
-                myTable+='href';
+                myTable+='Item Name';
                 myTable+='</th>';
                 myTable+='<th>';
-                myTable+='ingredients';
+                myTable+='Brand Name';
                 myTable+='</th>';
                 myTable+='<th>';
-                myTable+='thumbnail';
+                myTable+='Serving size qty';
                 myTable+='</th>';
-                //alert(ourData['results']['results'].length);
-            for(var i=0;i<ourData['results']['results'].length;i++){
+                myTable+='<th>';
+                myTable+='Serving size Unit';
+                myTable+='</th>';
+                //alert(ourData['hits'].length);
+            for(var i=0;i<ourData['hits'].length;i++){
                 myTable+='<tr>';  
                 myTable+='<td>';
-                myTable+=ourData['results']['results'][i]['title'];
+                myTable+=ourData['hits'][i]['fields']['item_id'];
+               
                 myTable+='</td>';
                 myTable+='<td>';
-                myTable+='<a href='+'"'+ourData['results']['results'][i]['href']+'"'+'>'+ourData['results']['results'][i]['href']+'</a>';
+                myTable+=ourData['hits'][i]['fields']['item_name'];
                 myTable+='</td>';
                 myTable+='<td>';
-                myTable+=ourData['results']['results'][i]['ingredients'];
+                myTable+=ourData['hits'][i]['fields']['brand_name'];
                 myTable+='</td>';
                 myTable+='<td>';
-                // myTable+=ourData['results']['results'][i]['thumbnail'];
-                myTable+='<img src='+'"'+ourData['results']['results'][i]['thumbnail']+'"'+'>';
+                myTable+=ourData['hits'][i]['fields']['nf_serving_size_qty'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['hits'][i]['fields']['nf_serving_size_unit'];
                 myTable+='</td>';
                myTable+='</tr>';
             }
@@ -71,7 +78,7 @@
 </script>
 <h1>Hello Welcome to Nutrition Finder</h1>
 <button id="nutrition"onclick="loadNutrition()">Nutrition</button>
- <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="Search Nutrition" id="nutrition" name="name" />
+ <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="Search Nutrition" id="query" name="name" />
        <div id="tablePrint"> </div>
        <!--<img src="http://img.recipepuppy.com/622460.jpg">-->
 
