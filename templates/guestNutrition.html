@@ -5,7 +5,11 @@
     // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
         var loadNutrition = function(){
             //alert("inside");
+            var clear='';
+            document.getElementById('tablePrint2').innerHTML=clear;
             let userValue = document.getElementById("query").value;
+            document.getElementById("button").style.display='block';
+            document.getElementById("query2").style.display='block';
             console.log("userValue ", userValue);
             
             var ourRequest= new XMLHttpRequest();
@@ -16,7 +20,7 @@
             ourRequest.onreadystatechange=function(){
                 if(ourRequest.readyState == XMLHttpRequest.DONE && ourRequest.status == 200) {
                     var ourData=ourRequest.responseText;
-                    console.log("ourData ", ourData);
+                    //console.log("ourData ", ourData);
                     var json = JSON.parse(ourData);
 
                     display(json);
@@ -27,9 +31,11 @@
 
         var display=function(ourData){
             var show=document.getElementById("tablePrint");
-            var myTable='<table>'
-            myTable+='<caption>Nutrition</caption>';
-            let displayText = '';
+            var myTable='<table class ="highlight">'
+            // myTable+='<caption>Nutrition</caption>';
+            // let displayText = '';
+                myTable+='<thead>';
+                myTable+='<tr>';
                 myTable+='<th>';
                 myTable+='Item Id';
                 myTable+='</th>';
@@ -45,12 +51,14 @@
                 myTable+='<th>';
                 myTable+='Serving size Unit';
                 myTable+='</th>';
+                myTable+='</tr>';
+                myTable+='</thead>';
+                myTable+='<tbody>';
                 //alert(ourData['hits'].length);
             for(var i=0;i<ourData['hits'].length;i++){
                 myTable+='<tr>';  
                 myTable+='<td>';
                 myTable+=ourData['hits'][i]['fields']['item_id'];
-               
                 myTable+='</td>';
                 myTable+='<td>';
                 myTable+=ourData['hits'][i]['fields']['item_name'];
@@ -66,20 +74,129 @@
                 myTable+='</td>';
                myTable+='</tr>';
             }
+            myTable+='</tbody>';
              
             myTable+='</table>';
             document.getElementById('tablePrint').innerHTML = myTable;
 
         }
+        var getNutritionFacts = function(){
+            let userValue = document.getElementById("query2").value;
+            console.log("userValue ", userValue);
+            var ourRequest= new XMLHttpRequest();
+            //https://api.nutritionix.com/v1_1/item?id=5707e580a613d0d10ed33608&appId=62a70248&appKey=4c6269d3d4c26690f9511d2103eccc48
+            ourRequest.open('GET','https://api.nutritionix.com/v1_1/item?id='+userValue+'&&appId=62a70248'+'&&appKey=4c6269d3d4c26690f9511d2103eccc48');
+            // ourRequest.open('GET',url);
+            ourRequest.send();
+            ourRequest.onreadystatechange=function(){
+                if(ourRequest.readyState == XMLHttpRequest.DONE && ourRequest.status == 200) {
+                    var ourData=ourRequest.responseText;
+                    console.log("ourData ", ourData);
+                    var json = JSON.parse(ourData);
 
-// window.onload = function(){
-//      loadKnowlegebase();
-// }
+                    display2(json);
+                }
+            };
+        }
+var display2 = function(ourData){
+            var clear='';
+            document.getElementById('tablePrint').innerHTML=clear;
+            var myTable='<table class="highlight">';
+            // myTable+='<caption>Nutrition Facts</caption>';
+                myTable+='<thead>';
+                myTable+='<tr>';
+                myTable+='<th>';
+                myTable+='Item Name';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='Item Description';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='updated time';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='calories';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='calories from fat';
+                myTable+='</th>';
+                 myTable+='<th>';
+                myTable+='Total Fat';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='Saturated Fat';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='Cholesterol';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='Sugars';
+                myTable+='</th>';
+                myTable+='<th>';
+                myTable+='Protein';
+                myTable+='</th>';
+                myTable+='</tr>';
+                myTable+='</thead>';
+                
+                myTable+='<tbody>';
+                myTable+='<tr>';  
+                myTable+='<td>';
+                myTable+=ourData['item_name'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['item_description'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['updated_at'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['nf_calories'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['nf_calories_from_fat'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['nf_total_fat'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['nf_saturated_fat'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['nf_cholesterol'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['nf_sugars'];
+                myTable+='</td>';
+                myTable+='<td>';
+                myTable+=ourData['nf_protein'];
+                myTable+='</td>';
+                myTable+='</tr>';
+                myTable+='</tbody>';
+            
+             
+            myTable+='</table>';
+            document.getElementById('tablePrint2').innerHTML = myTable;
+}
+window.onload=function(){
+  document.getElementById("button").style.display='none';
+document.getElementById("query2").style.display='none';
+}
 </script>
-<h1>Hello Welcome to Nutrition Finder</h1>
-<button id="nutrition"onclick="loadNutrition()">Nutrition</button>
- <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="Search Nutrition" id="query" name="name" />
+<h1>Nutrition Facts</h1>
+<div class="card-panel green lighten-2">
+<!--<button id="nutrition"onclick="loadNutrition()">Search</button>-->
+<a id="nutrition"class="btn btn-floating pulse"onclick="loadNutrition()"><i class="material-icons">search</i></a>
+ <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Search Nutrition"style="font-family:Arial, FontAwesome" id="query" name="name" />
+ <br>
+
+ <!--<button id="button"onclick="getNutritionFacts()">NutritionSearch</button>-->
+ <a id="button"class="btn btn-floating pulse"onclick="getNutritionFacts()"><i class="material-icons">search</i></a>
+
+ <input   data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Enter Item ID"style="font-family:Arial, FontAwesome" id="query2" name="name" />
+</div>
+<div class="card-panel dark grey lighten-2">
        <div id="tablePrint"> </div>
-       <!--<img src="http://img.recipepuppy.com/622460.jpg">-->
+       <div id="tablePrint2"> </div>
+       </div>
 
 {% endblock %}
