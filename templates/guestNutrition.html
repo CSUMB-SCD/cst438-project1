@@ -54,11 +54,13 @@
                 myTable+='</tr>';
                 myTable+='</thead>';
                 myTable+='<tbody>';
+                // <a href="#" onclick="someFunction();"
                 //alert(ourData['hits'].length);
+                
             for(var i=0;i<ourData['hits'].length;i++){
                 myTable+='<tr>';  
                 myTable+='<td>';
-                myTable+=ourData['hits'][i]['fields']['item_id'];
+                myTable+='<a class="info_link" href="#"'+ 'onclick="getID();"'+'>'+ourData['hits'][i]['fields']['item_id']+'</a>';
                 myTable+='</td>';
                 myTable+='<td>';
                 myTable+=ourData['hits'][i]['fields']['item_name'];
@@ -98,6 +100,19 @@
                 }
             };
         }
+var getID = function(){
+    document.getElementById('query2')
+    var id;
+    $(function(){
+  $('.info_link').click(function(){
+    //alert($(this).text());
+    id=$(this).text();
+    $("#query2").val(id);
+    // or alert($(this).hash();
+  });
+});
+
+}
 var display2 = function(ourData){
             //var clear='';
             // document.getElementById('tablePrint').innerHTML=clear;
@@ -108,12 +123,12 @@ var display2 = function(ourData){
                 myTable+='<th>';
                 myTable+='Item Name';
                 myTable+='</th>';
-                myTable+='<th>';
-                myTable+='Item Description';
-                myTable+='</th>';
-                myTable+='<th>';
-                myTable+='updated time';
-                myTable+='</th>';
+                // myTable+='<th>';
+                // myTable+='Item Description';
+                // myTable+='</th>';
+                // myTable+='<th>';
+                // myTable+='updated time';
+                // myTable+='</th>';
                 myTable+='<th>';
                 myTable+='calories';
                 myTable+='</th>';
@@ -143,12 +158,12 @@ var display2 = function(ourData){
                 myTable+='<td>';
                 myTable+=ourData['item_name'];
                 myTable+='</td>';
-                myTable+='<td>';
-                myTable+=ourData['item_description'];
-                myTable+='</td>';
-                myTable+='<td>';
-                myTable+=ourData['updated_at'];
-                myTable+='</td>';
+                // myTable+='<td>';
+                // myTable+=ourData['item_description'];
+                // myTable+='</td>';
+                // myTable+='<td>';
+                // myTable+=ourData['updated_at'];
+                // myTable+='</td>';
                 myTable+='<td>';
                 myTable+=ourData['nf_calories'];
                 myTable+='</td>';
@@ -187,13 +202,13 @@ document.getElementById("query2").style.display='none';
 <div class="card-panel green lighten-2">
 <!--<button id="nutrition"onclick="loadNutrition()">Search</button>-->
 <a id="nutrition"class="btn btn-floating pulse"onclick="loadNutrition()"><i class="material-icons">search</i></a>
- <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Search Nutrition"style="font-family:Arial, FontAwesome" id="query" name="name" />
+ <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Enter Recipe"style="font-family:Arial, FontAwesome" id="query" name="name" />
  <br>
 
  <!--<button id="button"onclick="getNutritionFacts()">NutritionSearch</button>-->
  <a id="button"class="btn btn-floating pulse"onclick="getNutritionFacts()"><i class="material-icons">search</i></a>
 
- <input   data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Enter Item ID"style="font-family:Arial, FontAwesome" id="query2" name="name" />
+ <input   data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Enter Item ID or click on ID"style="font-family:Arial, FontAwesome" id="query2" name="name" />
 </div>
 <div class="card-panel dark grey lighten-2">
        <div id="tablePrint2"> </div>

@@ -1,6 +1,8 @@
 {% extends 'layout.html' %}
 {% block body %}
 <script> 
+    var key;
+    var appName;
 
     // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
     var loadResults = function(){
@@ -25,6 +27,7 @@
     };
 
     var display=function(ourData){
+        var recipe;
         // var show=document.getElementById("tablePrint");
         var myTable='<table class="highlight">';
         // myTable+='<caption>Recipes</caption>';
@@ -54,7 +57,8 @@
             myTable+=ourData['results']['results'][i]['title'];
             myTable+='</td>';
             myTable+='<td>';
-            myTable+='<a href='+'"'+ourData['results']['results'][i]['href']+'"'+'>'+ourData['results']['results'][i]['href']+'</a>';
+            recipe=ourData['results']['results'][i]['href'];
+            myTable+='<a href='+'"'+recipe+'"'+'>'+"recipe"+'</a>';
             myTable+='</td>';
             myTable+='<td>';
             myTable+=ourData['results']['results'][i]['ingredients'];
@@ -84,9 +88,11 @@
 <a id="search"onclick="loadResults()"class="btn btn-floating pulse"><i class="material-icons">search</i></a>
  <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Ingredient(s)"style="font-family:Arial, FontAwesome" id="query" name="name" />
  </div>
+ <div class="card blue-grey darken-1">
  <div class="card-panel dark grey lighten-2">
        <div id="tablePrint"> </div>
        <!--<img src="http://img.recipepuppy.com/622460.jpg">-->
+       </div>
        </div>
        </div>
 
