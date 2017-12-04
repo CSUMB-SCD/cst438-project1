@@ -28,6 +28,7 @@ def register():
         user = users.find_one({'username' : request.form['username']})
 
         if user is None:
+            # todo: check if password == confirm password
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
             users.insert({'username' : request.form['username'], 'password' : hashpass})
             session['username'] = request.form['username']
