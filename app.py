@@ -26,12 +26,13 @@ def register():
     if request.method == 'POST':
         users = mongo.db.users
         user = users.find_one({'username' : request.form['username']})
-
+        console.log(request.form['username'])
         if user is None:
             # todo: check if password == confirm password
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
             users.insert({'username' : request.form['username'], 'password' : hashpass})
             session['username'] = request.form['username']
+            console.log(session['username'])
             return redirect(url_for('home'))
         return 'User already exists!';
     if request.method == 'GET':
