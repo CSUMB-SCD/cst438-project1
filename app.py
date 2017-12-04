@@ -11,7 +11,7 @@ app = Flask(__name__)
 # pwd = os.environ['dbpwd'] 
 
 app.config['MONGO_DBNAME'] = 'recipe_finder_users'
-app.config['MONGO_URI'] = ['mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users']
+app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
 
 
 CORS(app)
