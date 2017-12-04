@@ -7,14 +7,14 @@ import json
 
 app = Flask(__name__)
 
-user = os.environ['user']
-pwd = os.environ['dbpwd'] 
+# string user = os.environ['user']
+# pwd = os.environ['dbpwd'] 
 
-console.log(user)
-console.log(pwd)
+# console.log(user)
+# console.log(pwd)
 
 app.config['MONGO_DBNAME'] = 'recipe_finder_users'
-app.config['MONGO_URI'] = ['mongodb://'+user+':'+pwd+'@ds155325.mlab.com:55325/recipe_finder_users']
+app.config['MONGO_URI'] = ['mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users']
  
 
 CORS(app)
