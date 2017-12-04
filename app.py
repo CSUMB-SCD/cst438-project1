@@ -4,6 +4,7 @@ from urllib2 import Request, urlopen, URLError
 import os
 from flask_cors import CORS
 import json
+import bcrypt
 
 app = Flask(__name__)
 
@@ -12,7 +13,6 @@ app = Flask(__name__)
 
 app.config['MONGO_DBNAME'] = 'recipe_finder_users'
 app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
-
 
 CORS(app)
 @app.route('/nutrition')
