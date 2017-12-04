@@ -1,4 +1,4 @@
-from flask import Flask, render_template,jsonify,request,session
+from flask import Flask, render_template,jsonify,request,session, url_for
 from urllib2 import Request, urlopen, URLError
 # import requests
 import os
@@ -10,12 +10,9 @@ app = Flask(__name__)
 # string user = os.environ['user']
 # pwd = os.environ['dbpwd'] 
 
-# console.log(user)
-# console.log(pwd)
-
 app.config['MONGO_DBNAME'] = 'recipe_finder_users'
 app.config['MONGO_URI'] = ['mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users']
- 
+
 
 CORS(app)
 @app.route('/nutrition')
@@ -35,9 +32,8 @@ def register():
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
             users.insert({'username' : request.form['username'], 'password' : hashpass})
             session['username'] = request.form['username']
-            console.log(session['username'])
-            # return redirect(url_for('home'))
-            return render_template('userHome.html')
+            return redirect(url_for('home'))
+            # return render_template('userHome.html')
         return 'User already exists!';
     if request.method == 'GET':
         return ''
@@ -45,7 +41,7 @@ def register():
 def home():
     if 'username' in session:
         return 'You are logged in as ' +  session['username']
-    # return render_template('userHome.html')
+    return render_template('userHome.html')
 @app.route('/')
 def login():
   return render_template('login.html')
