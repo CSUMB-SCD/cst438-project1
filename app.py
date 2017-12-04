@@ -21,7 +21,7 @@ CORS(app)
 @app.route('/nutrition')
 def nutrition():
     return render_template('guestNutrition.html')
-@app.route('/login')
+@app.route('/login', methods=['POST', 'GET'])
 def login2():
     return ''
 @app.route('/register', methods=['POST', 'GET'])
@@ -36,7 +36,8 @@ def register():
             users.insert({'username' : request.form['username'], 'password' : hashpass})
             session['username'] = request.form['username']
             console.log(session['username'])
-            return redirect(url_for('home'))
+            # return redirect(url_for('home'))
+            return render_template('userHome.html')
         return 'User already exists!';
     if request.method == 'GET':
         return ''
@@ -44,7 +45,7 @@ def register():
 def home():
     if 'username' in session:
         return 'You are logged in as ' +  session['username']
-    return render_template('userHome.html')
+    # return render_template('userHome.html')
 @app.route('/')
 def login():
   return render_template('login.html')
