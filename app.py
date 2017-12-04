@@ -5,13 +5,15 @@ import os
 from flask_cors import CORS
 import json
 
-# user = os.environ['user']
-# pwd = os.environ['dbpwd'] 
-
-# app.config['MONGO_DBNAME'] = 'recipe_finder_users'
-# app.config['MONGO_URI'] = ['mongodb://'+user+':'+pwd+'@ds155325.mlab.com:55325/recipe_finder_users']
- 
 app = Flask(__name__)
+
+user = os.environ['user']
+pwd = os.environ['dbpwd'] 
+
+app.config['MONGO_DBNAME'] = 'recipe_finder_users'
+app.config['MONGO_URI'] = ['mongodb://'+user+':'+pwd+'@ds155325.mlab.com:55325/recipe_finder_users']
+ 
+
 CORS(app)
 @app.route('/nutrition')
 def nutrition():
