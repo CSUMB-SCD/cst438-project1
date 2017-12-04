@@ -35,7 +35,7 @@ def register():
             return redirect(url_for('home'))
         return 'User already exists!';
     if request.method == 'GET':
-        return
+        return ''
 @app.route('/home')
 def home():
     if 'username' in session:
