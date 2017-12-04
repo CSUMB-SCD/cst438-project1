@@ -7,14 +7,13 @@ import json
 import bcrypt
 
 app = Flask(__name__)
-
+CORS(app)
 # string user = os.environ['user']
 # pwd = os.environ['dbpwd'] 
 
 app.config['MONGO_DBNAME'] = 'recipe_finder_users'
 app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
 
-CORS(app)
 @app.route('/nutrition')
 def nutrition():
     return render_template('guestNutrition.html')
