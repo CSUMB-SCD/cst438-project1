@@ -12,20 +12,35 @@ mongo = PyMongo(app)
 
 CORS(app)
 # string user = os.environ['user']
-# pwd = os.environ['dbpwd'] 
+# pwd = os.environ['dbpwd']
 
-app.config['MONGO_DBNAME'] = 'recipe_finder_users'
-app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
-
+app.config['MONGO_DBNAME'] = 'recipe_test1'
+#app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
+app.config['MONGO_URI'] = 'mongodb://'+'testingproject1'+':'+'project1' +'@ds129966.mlab.com:29966/recipe_test1'
 @app.route('/nutrition')
 def nutrition():
     return render_template('guestNutrition.html')
 @app.route('/guestNutrition')
-def nutrition():
+def nutrition1():
     return render_template('guestNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
 @app.route('/login', methods=['POST', 'GET'])
 def login2():
-    return ''
+    if request.method == 'POST':
+        users = mongo.db.users
+        hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+        user = users.find({'username' : request.form['username'], 'password' : hashpass})
+        if user is None:
+            return 'User doesnt exist'
+        else:
+            # password = users.find_one({'password' : hashpass})
+            #get the password from the database and set it equal to variable password
+            # if password == hashpass:
+            return redirect(url_for('home'))
+
+        # if users.find( { $and: [ { username : request.form['username']}, {password : request.form['password'] } ] }  ):
+        #     return redirect(url_for('home'))
+    if request.method == 'GET':
+        return ''
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
