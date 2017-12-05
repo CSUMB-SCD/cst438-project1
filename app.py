@@ -1,5 +1,6 @@
-from flask import Flask, render_template,jsonify,request,session, url_for
+from flask import Flask, render_template, jsonify, request, session, url_for, redirect
 from urllib2 import Request, urlopen, URLError
+from flask_pymongo import PyMongo
 # import requests
 import os
 from flask_cors import CORS
@@ -10,10 +11,11 @@ app = Flask(__name__)
 CORS(app)
 # string user = os.environ['user']
 # pwd = os.environ['dbpwd'] 
-
+userKey = ''
 app.config['MONGO_DBNAME'] = 'recipe_finder_users'
-app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
-
+# app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
+app.config['MONGO_URI'] = 'mongodb://'+'nhipolito'+':'+'project1' +'@ds155325.mlab.com:55325/recipe_finder_users'
+mongo = PyMongo(app)
 @app.route('/nutrition')
 def nutrition():
     return render_template('guestNutrition.html')
@@ -25,7 +27,6 @@ def register():
     if request.method == 'POST':
         users = mongo.db.users
         user = users.find_one({'username' : request.form['username']})
-        console.log(request.form['username'])
         if user is None:
             # todo: check if password == confirm password
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
@@ -39,8 +40,10 @@ def register():
 @app.route('/home')
 def home():
     if 'username' in session:
-        return 'You are logged in as ' +  session['username']
-    return render_template('userHome.html')
+        app.secret_key = session['username']
+        print app.secret_key
+        # return 'You are logged in as ' +  session['username']
+        return render_template('userHome.html')
 @app.route('/')
 def login():
   return render_template('login.html')
@@ -77,6 +80,7 @@ def guestHome():
 	return render_template('guestHome.html') 
 
 if __name__ == "__main__":
+    app.secret_key = 'secretkey'
     app.run(host='0.0.0.0', port=int(8080), debug=True)
     # app.run(
     # host=os.getenv('IP', '0.0.0.0'),
