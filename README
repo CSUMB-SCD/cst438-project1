@@ -3,6 +3,8 @@ Prerequisites:
     - flask (pip install Flask / c9: sudo easy_install Flask)
     - flask_cors (api_calls)
     - mongodb
+    - bcrypt
+    - PyMongo
 To run, go to terminal where app.py is located and put in: 
 	- FLASK_APP=app.py
 	- python -m flask run
