@@ -2,6 +2,11 @@
 {% block body %}
     <script>
 
+    var key = '{{key}}';
+    var app= '{{ name }}';
+    alert(app);
+    alert(key);
+
     // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
         var loadNutrition = function(){
             //alert("inside");
@@ -14,7 +19,8 @@
             
             var ourRequest= new XMLHttpRequest();
             // ourRequest.open('GET','http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
-            ourRequest.open('GET','https://api.nutritionix.com/v1_1/search/'+userValue+'?appId=62a70248'+'&appKey=4c6269d3d4c26690f9511d2103eccc48');
+                ourRequest.open('GET','https://api.nutritionix.com/v1_1/search/'+userValue+'?appId='+app+'&appKey='+key);
+            // ourRequest.open('GET','https://api.nutritionix.com/v1_1/search/'+userValue+'?appId=62a70248'+'&appKey=4c6269d3d4c26690f9511d2103eccc48');
             // ourRequest.open('GET',url);
             ourRequest.send();
             ourRequest.onreadystatechange=function(){

@@ -4,12 +4,13 @@ from urllib2 import Request, urlopen, URLError
 import os
 from flask_cors import CORS
 import json
- 
+
 app = Flask(__name__)
 CORS(app)
-@app.route('/nutrition')
+
+@app.route('/guestNutrition')
 def nutrition():
-    return render_template('guestNutrition.html')
+    return render_template('guestNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
 @app.route('/login')
 def login2():
     return render_template('login.html')
@@ -37,6 +38,8 @@ def nutritionApi(phrase):
     print phrase
     request=Request('https://api.nutritionix.com/v1_1/search/'+phrase+'?appId='+os.environ['appId']+'&appKey='+os.environ['appKey'])
     try:
+        key=os.environ['appKey']
+        applicationId=os.environ['appId']
         response=urlopen(request)
         nutrition=response.read()
         jsonObject=json.loads(nutrition)
