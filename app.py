@@ -13,10 +13,10 @@ mongo = PyMongo(app)
 CORS(app)
 # string user = os.environ['user']
 # pwd = os.environ['dbpwd'] 
-userKey = ''
+
 app.config['MONGO_DBNAME'] = 'recipe_finder_users'
 app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
-mongo = PyMongo(app)
+
 @app.route('/nutrition')
 def nutrition():
     return render_template('guestNutrition.html')
