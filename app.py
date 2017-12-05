@@ -1,21 +1,25 @@
 from flask import Flask, render_template,jsonify,request,url_for,session,redirect
 from urllib2 import Request, urlopen, URLError
 from flask_pymongo import PyMongo
+from flask_mongo_sessions import MongoDBSessionInterface
 # import requests
 import os
 from flask_cors import CORS
 import json
+#TODO Put import into a inport file if time permits for clean up
 
 app = Flask(__name__)
-
 app.config['MONGO_DBNAME'] = 'recipe-finder'
 app.config['MONGO_URI'] = 'mongodb://Discharg:SEproject@ds125716.mlab.com:25716/recipe-finder'
-
 mongo = PyMongo(app)
+with app.app_context():
+    app.session_interface = MongoDBSessionInterface(app, mongo.db, 'sessions')
+
 
 CORS(app)
 @app.route('/nutrition')
 def nutrition():
+    print mongo.db.users.find_one({'username' : 'carlos'})
     return render_template('guestNutrition.html')
 @app.route('/login')
 def login2():
