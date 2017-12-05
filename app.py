@@ -1,14 +1,28 @@
+<<<<<<< HEAD
 from flask import Flask, render_template, jsonify, request, session, url_for, redirect
+=======
+from flask import Flask, render_template,jsonify,request,url_for,session,redirect
+>>>>>>> fa530dc4c47dd45644fac477af27fe5d5ac1845a
 from urllib2 import Request, urlopen, URLError
 from flask_pymongo import PyMongo
 # import requests
 import os
 from flask_cors import CORS
 import json
+<<<<<<< HEAD
 import bcrypt
+=======
+>>>>>>> fa530dc4c47dd45644fac477af27fe5d5ac1845a
 
 app = Flask(__name__)
+
+app.config['MONGO_DBNAME'] = 'recipe-finder'
+app.config['MONGO_URI'] = 'mongodb://Discharg:SEproject@ds125716.mlab.com:25716/recipe-finder'
+
+mongo = PyMongo(app)
+
 CORS(app)
+<<<<<<< HEAD
 # string user = os.environ['user']
 # pwd = os.environ['dbpwd'] 
 userKey = ''
@@ -20,6 +34,13 @@ mongo = PyMongo(app)
 def nutrition():
     return render_template('guestNutrition.html')
 @app.route('/login', methods=['POST', 'GET'])
+=======
+
+@app.route('/guestNutrition')
+def nutrition():
+    return render_template('guestNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
+@app.route('/login')
+>>>>>>> fa530dc4c47dd45644fac477af27fe5d5ac1845a
 def login2():
     return ''
 @app.route('/register', methods=['POST', 'GET'])
@@ -68,6 +89,8 @@ def nutritionApi(phrase):
     print phrase
     request=Request('https://api.nutritionix.com/v1_1/search/'+phrase+'?appId='+os.environ['appId']+'&appKey='+os.environ['appKey'])
     try:
+        key=os.environ['appKey']
+        applicationId=os.environ['appId']
         response=urlopen(request)
         nutrition=response.read()
         jsonObject=json.loads(nutrition)
@@ -77,7 +100,7 @@ def nutritionApi(phrase):
         print ' Got an error code:', e
 @app.route('/guestHome')
 def guestHome():
-	return render_template('guestHome.html') 
+	return render_template('guestHome.html')
 
 if __name__ == "__main__":
     app.secret_key = 'secretkey'
