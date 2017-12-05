@@ -23,6 +23,7 @@ def nutrition():
     return render_template('guestNutrition.html')
 @app.route('/login')
 def login2():
+    
     return render_template('login.html')
 @app.route('/')
 def login():
