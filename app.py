@@ -1,11 +1,18 @@
-from flask import Flask, render_template,jsonify,request
+from flask import Flask, render_template,jsonify,request,url_for,session,redirect
 from urllib2 import Request, urlopen, URLError
+from flask_pymongo import PyMongo
 # import requests
 import os
 from flask_cors import CORS
 import json
 
 app = Flask(__name__)
+
+app.config['MONGO_DBNAME'] = 'recipe-finder'
+app.config['MONGO_URI'] = 'mongodb://Discharg:SEproject@ds125716.mlab.com:25716/recipe-finder'
+
+mongo = PyMongo(app)
+
 CORS(app)
 
 @app.route('/guestNutrition')
@@ -49,7 +56,7 @@ def nutritionApi(phrase):
         print ' Got an error code:', e
 @app.route('/guestHome')
 def guestHome():
-	return render_template('guestHome.html') 
+	return render_template('guestHome.html')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(8080), debug=True)
