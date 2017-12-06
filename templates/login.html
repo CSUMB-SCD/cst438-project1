@@ -1,9 +1,9 @@
 
 {% extends 'homeLayout.html' %}
 {% block body %}
-
 <div class="materialContainer">
    <div class="box">
+      <div class="loader" id="loader"style="display:block"></div> 
 
       <div class="title">LOGIN</div>
 
@@ -179,5 +179,10 @@
    });
 
 });
+window.onload=function(){
+    $('#loader').css('display', 'none');
+//   document.getElementById("button").style.display='none';
+// document.getElementById("query2").style.display='none';
+};
 </script>
 {% endblock %}
