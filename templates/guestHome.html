@@ -37,7 +37,7 @@
             myTable+='title';
             myTable+='</th>';
             myTable+='<th>';
-            myTable+='href';
+            myTable+='Save Recipe';
             myTable+='</th>';
             myTable+='<th>';
             myTable+='ingredients';
@@ -51,13 +51,13 @@
     
             //alert(ourData['results']['results'].length);
         for(var i=0;i<ourData['results']['results'].length;i++){
+            recipe=ourData['results']['results'][i]['href'];
             myTable+='<tr>';  
             myTable+='<td>';
-            myTable+=ourData['results']['results'][i]['title'];
+            myTable+='<a href='+'"'+ourData['results']['results'][i]['href']+'"'+'>'+ourData['results']['results'][i]['title']+'</a>';
             myTable+='</td>';
             myTable+='<td>';
-            recipe=ourData['results']['results'][i]['href'];
-            myTable+='<a href='+'"'+recipe+'"'+'>'+"recipe"+'</a>';
+            myTable+='<button class="btn btn-primary btn-sm" type="button" id="save">Save Recipe</button>';
             myTable+='</td>';
             myTable+='<td>';
             myTable+=ourData['results']['results'][i]['ingredients'];
