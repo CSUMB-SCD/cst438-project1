@@ -8,7 +8,6 @@ import json
 import bcrypt
 
 app = Flask(__name__)
-mongo = PyMongo(app)
 
 CORS(app)
 # string user = os.environ['user']
@@ -16,7 +15,8 @@ CORS(app)
 
 app.config['MONGO_DBNAME'] = 'recipe_finder_users'
 # app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
-app.config['MONGO_URI'] = 'mongodb://'+'test10'+':'+'testing'+'@ds155325.mlab.com:55325/recipe_finder_users'
+app.config['MONGO_URI'] = 'mongodb://'+'utsab'+':'+'testing'+'@ds155325.mlab.com:55325/recipe_finder_users'
+mongo = PyMongo(app)
 
 @app.route('/nutrition')
 def nutrition():
@@ -34,9 +34,6 @@ def login2():
             print 'user doesnt exist!'
             return 'User doesnt exist'
         else:
-            # password = users.find_one({'password' : hashpass})
-            #get the password from the database and set it equal to variable password
-            # if password == hashpass:
             print 'user exists!'
             session['username'] = request.form['username']
             return redirect(url_for('home'))
@@ -49,13 +46,16 @@ def login2():
 def register():
     if request.method == 'POST':
         users = mongo.db.users
+        print 'Inside register'
         user = users.find_one({'username' : request.form['username']})
+        print 'After find_one is called'
         if user is None:
             # todo: check if password == confirm password
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
             users.insert({'username' : request.form['username'], 'password' : hashpass})
             session['username'] = request.form['username']
             print session['username']
+            print 'Registering user!'
             return redirect(url_for('home'))
         print user
         print request.form['username']
@@ -66,8 +66,8 @@ def register():
 def home():
     if 'username' in session:
         app.secret_key = session['username']
-        print app.secret_key
         # return 'You are logged in as ' +  session['username']
+        print 'inside ' + session['username'] + 's profile!'
         return render_template('userHome.html')
     return 'user doesnt exist but still tried to proceed to home?'
 @app.route('/')
