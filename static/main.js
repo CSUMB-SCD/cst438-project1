@@ -161,12 +161,13 @@ var display2 = function(ourData) {
     document.getElementById('tablePrint2').innerHTML = myTable;
 };
 var getID = function() {
+    //alert("inside");
     document.getElementById('query2')
     var id;
     $(function() {
         $('.info_link').click(function() {
             //alert($(this).text());
-            id = $(this).text();
+            id = $(this).val();
             getNutritionFacts(id);
             // $("#query2").val(id);
             // or alert($(this).hash();
@@ -202,7 +203,7 @@ var display3 = function(ourData) {
     myTable += '<thead>';
     myTable += '<tr>';
     myTable += '<th>';
-    myTable += 'Item Id';
+    myTable += 'Click to Expand';
     myTable += '</th>';
     myTable += '<th>';
     myTable += 'Item Name';
@@ -225,7 +226,8 @@ var display3 = function(ourData) {
     for (var i = 0; i < ourData['hits'].length; i++) {
         myTable += '<tr>';
         myTable += '<td>';
-        myTable += '<a class="info_link"' + 'onclick="getID();"' + '>' + ourData['hits'][i]['fields']['item_id'] + '</a>';
+        myTable += '<button class="info_link" value="'+ourData['hits'][i]['fields']['item_id']+ '"onclick="getID();" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored"><i class="material-icons">add</i></button>';
+        // myTable += '<a class="info_link"' + 'onclick="getID();"' + '>' + ourData['hits'][i]['fields']['item_id'] + '</a>';
         myTable += '</td>';
         myTable += '<td>';
         myTable += ourData['hits'][i]['fields']['item_name'];
