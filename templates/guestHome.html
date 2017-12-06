@@ -2,6 +2,7 @@
 {% block body %}
 <script> 
 
+
     // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
     var loadResults = function(){
         let userValue = document.getElementById("query").value;
@@ -25,6 +26,7 @@
     };
 
     var display=function(ourData){
+        var recipe;
         // var show=document.getElementById("tablePrint");
         var myTable='<table class="highlight">';
         // myTable+='<caption>Recipes</caption>';
@@ -54,7 +56,8 @@
             myTable+=ourData['results']['results'][i]['title'];
             myTable+='</td>';
             myTable+='<td>';
-            myTable+='<a href='+'"'+ourData['results']['results'][i]['href']+'"'+'>'+ourData['results']['results'][i]['href']+'</a>';
+            recipe=ourData['results']['results'][i]['href'];
+            myTable+='<a href='+'"'+recipe+'"'+'>'+"recipe"+'</a>';
             myTable+='</td>';
             myTable+='<td>';
             myTable+=ourData['results']['results'][i]['ingredients'];
@@ -82,11 +85,13 @@
 <p>Note: Please enter commas to seperate multipe ingredients. (i.e. salt,sugar)</p>
 <!--<button id="search" onclick="loadKnowlegebase()">Search</button>-->
 <a id="search"onclick="loadResults()"class="btn btn-floating pulse"><i class="material-icons">search</i></a>
- <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Ingredient(s)"style="font-family:Arial, FontAwesome" id="query" name="name" />
+ <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Ingredient(s)"style="font-family:Arial, FontAwesome" id="query" name="name"required />
  </div>
+ <div class="card blue-grey darken-1">
  <div class="card-panel dark grey lighten-2">
        <div id="tablePrint"> </div>
        <!--<img src="http://img.recipepuppy.com/622460.jpg">-->
+       </div>
        </div>
        </div>
 
