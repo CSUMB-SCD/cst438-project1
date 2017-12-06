@@ -198,19 +198,29 @@ var display2 = function(ourData){
             myTable+='</table>';
             document.getElementById('tablePrint2').innerHTML = myTable;
 };
+function myFunction() {
+    
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
 window.onload=function(){
   document.getElementById("button").style.display='none';
 document.getElementById("query2").style.display='none';
 };
 </script>
 <!--<h1>Nutrition Facts</h1>-->
+
 <div class="wrap">
+    <div class="popup" onclick="myFunction()">
+    <a id="question"class="btn btn-floating pulse red"><i class="material-icons">help</i></a>
+      <span class="popuptext" id="myPopup">1)Enter Recipe 2)Enter ID for item</span>
+    </div>
+    
 <div class="card-panel green lighten-2">
 <!--<button id="nutrition"onclick="loadNutrition()">Search</button>-->
 <a id="nutrition"class="btn btn-floating pulse"onclick="loadNutrition()"><i class="material-icons">search</i></a>
  <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Enter Recipe"style="font-family:Arial, FontAwesome" id="query" name="name" />
  <br>
-
  <!--<button id="button"onclick="getNutritionFacts()">NutritionSearch</button>-->
  <a id="button"class="btn btn-floating pulse"onclick="getNutritionFacts()"><i class="material-icons">search</i></a>
 
