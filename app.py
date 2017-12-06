@@ -17,6 +17,7 @@ CORS(app)
 app.config['MONGO_DBNAME'] = 'recipe_finder_users'
 # app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
 app.config['MONGO_URI'] = 'mongodb://'+'test10'+':'+'testing'+'@ds155325.mlab.com:55325/recipe_finder_users'
+
 @app.route('/nutrition')
 def nutrition():
     return render_template('guestNutrition.html')
@@ -25,7 +26,25 @@ def nutrition1():
     return render_template('guestNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
 @app.route('/login', methods=['POST', 'GET'])
 def login2():
-    return ''
+    if request.method == 'POST':
+        users = mongo.db.users
+        hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+        user = users.find({'username' : request.form['username'], 'password' : hashpass})
+        if user is None:
+            print 'user doesnt exist!'
+            return 'User doesnt exist'
+        else:
+            # password = users.find_one({'password' : hashpass})
+            #get the password from the database and set it equal to variable password
+            # if password == hashpass:
+            print 'user exists!'
+            session['username'] = request.form['username']
+            return redirect(url_for('home'))
+
+        # if users.find( { $and: [ { username : request.form['username']}, {password : request.form['password'] } ] }  ):
+        #     return redirect(url_for('home'))
+    if request.method == 'GET':
+        return ''
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
@@ -36,6 +55,7 @@ def register():
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
             users.insert({'username' : request.form['username'], 'password' : hashpass})
             session['username'] = request.form['username']
+            print session['username']
             return redirect(url_for('home'))
         print user
         print request.form['username']
@@ -49,6 +69,7 @@ def home():
         print app.secret_key
         # return 'You are logged in as ' +  session['username']
         return render_template('userHome.html')
+    return 'user doesnt exist but still tried to proceed to home?'
 @app.route('/')
 def login():
   return render_template('login.html')
