@@ -15,13 +15,13 @@ CORS(app)
 # pwd = os.environ['dbpwd'] 
 
 app.config['MONGO_DBNAME'] = 'recipe_finder_users'
-app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
-
+# app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
+app.config['MONGO_URI'] = 'mongodb://'+'test10'+':'+'testing'+'@ds155325.mlab.com:55325/recipe_finder_users'
 @app.route('/nutrition')
 def nutrition():
     return render_template('guestNutrition.html')
 @app.route('/guestNutrition')
-def nutrition():
+def nutrition1():
     return render_template('guestNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
 @app.route('/login', methods=['POST', 'GET'])
 def login2():
@@ -37,7 +37,8 @@ def register():
             users.insert({'username' : request.form['username'], 'password' : hashpass})
             session['username'] = request.form['username']
             return redirect(url_for('home'))
-            # return render_template('userHome.html')
+        print user
+        print request.form['username']
         return 'User already exists!';
     if request.method == 'GET':
         return ''
