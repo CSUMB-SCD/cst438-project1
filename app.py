@@ -65,7 +65,9 @@ def register():
         return ''
 @app.route('/home')
 def home():
+    print 'inside home function!'
     if 'username' in session:
+        print 'inside session'
         app.secret_key = session['username']
         # return 'You are logged in as ' +  session['username']
         print 'inside ' + session['username'] + 's profile!'
@@ -137,6 +139,8 @@ def chat():
     return render_template('chat2.html')
 if __name__ == "__main__":
     app.secret_key = 'secretkey'
+    app.config['username'] = None
+
     app.run(host='0.0.0.0', port=int(8080), debug=True)
     # app.run(
     # host=os.getenv('IP', '0.0.0.0'),
