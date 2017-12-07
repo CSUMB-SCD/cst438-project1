@@ -9,7 +9,6 @@ import bcrypt
 
 app = Flask(__name__)
 
-CORS(app)
 # string user = os.environ['user']
 # pwd = os.environ['dbpwd']
 
@@ -139,8 +138,7 @@ def chat():
     return render_template('chat2.html')
 if __name__ == "__main__":
     app.secret_key = 'secretkey'
-    app.config['username'] = None
-
+    CORS(app)
     app.run(host='0.0.0.0', port=int(8080), debug=True)
     # app.run(
     # host=os.getenv('IP', '0.0.0.0'),
