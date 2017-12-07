@@ -1,9 +1,7 @@
 {% extends 'userLayout.html' %}
 {% block body %}
-<script> 
-    var key;
-    var appName;
 
+<script>
     // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
     var loadResults = function(){
         let userValue = document.getElementById("query").value;
@@ -27,45 +25,55 @@
     };
 
     var display=function(ourData){
-        var recipe;
+        var href;
+        var recipeName;
         // var show=document.getElementById("tablePrint");
         var myTable='<table class="highlight">';
         // myTable+='<caption>Recipes</caption>';
         // let displayText = '';
+        //     myTable+='<thead>';
             myTable+='<thead>';
             myTable+='<tr>';
             myTable+='<th>';
-            myTable+='title';
+            myTable+='Title';
+            myTable+='</th>';
+            // myTable+='<th>';
+            // myTable+='Save Recipe';
+            // myTable+='</th>';
+            // myTable+='<th>';
+            // myTable+='ingredients';
+            // myTable+='</th>';
+            myTable+='<th>';
+            myTable+='Thumbnail';
             myTable+='</th>';
             myTable+='<th>';
-            myTable+='href';
-            myTable+='</th>';
-            myTable+='<th>';
-            myTable+='ingredients';
-            myTable+='</th>';
-            myTable+='<th>';
-            myTable+='thumbnail';
+            myTable+='Save Recipe';
             myTable+='</th>';
             myTable+='</tr>';
             myTable+='</thead>';
             myTable+='<tbody>';
-    
+        var hasBeenAdded;
             //alert(ourData['results']['results'].length);
         for(var i=0;i<ourData['results']['results'].length;i++){
+            href=ourData['results']['results'][i]['href'];
+            recipeName=ourData['results']['results'][i]['title'];
             myTable+='<tr>';  
             myTable+='<td>';
-            myTable+=ourData['results']['results'][i]['title'];
+            myTable+='<a href='+'"'+ourData['results']['results'][i]['href']+'"'+'>'+ourData['results']['results'][i]['title']+'</a>';
             myTable+='</td>';
-            myTable+='<td>';
-            recipe=ourData['results']['results'][i]['href'];
-            myTable+='<a href='+'"'+recipe+'"'+'>'+"recipe"+'</a>';
-            myTable+='</td>';
-            myTable+='<td>';
-            myTable+=ourData['results']['results'][i]['ingredients'];
-            myTable+='</td>';
+            // myTable+='<td>';
+            // myTable+='<form action={{url_for("addRecipe")}} method=POST><input class="button" type="submit" name="submit" id="save" value='+ href + '>'Save Recipe'</input></form>';
+            // myTable+='</td>';
+            // myTable+='<td>';
+            // myTable+=ourData['results']['results'][i]['ingredients'];
+            // myTable+='</td>';
             myTable+='<td>';
             // myTable+=ourData['results']['results'][i]['thumbnail'];
             myTable+='<img src='+'"'+ourData['results']['results'][i]['thumbnail']+'"'+'>';
+            myTable+='</td>';
+            myTable+='<td>';
+            // myTable+='<input class="button" type="submit" name="submit" id="save" value='+ href + '>'Save Recipe'</input>';
+            myTable+='<i class="material-icons">add_circle</i>'
             myTable+='</td>';
            myTable+='</tr>';
         }
@@ -80,20 +88,24 @@
 //      loadKnowlegebase();
 // }
 </script>
-<div class="wrap">
 <!--<h1>Welcome to Recipe Finder</h1>-->
+<div class="wrap">
+    <div class="popup" onclick="myFunction()">
+    <a id="question"class="btn btn-floating pulse red"><i class="material-icons">help</i></a>
+      <span class="popuptext" id="myPopup">1)Please enter commas to seperate multipe ingredients. (i.e. salt,sugar)</span>
+    </div>
 <div class="card-panel green lighten-2">
-<p>Note: Please enter commas to seperate multipe ingredients. (i.e. salt,sugar)</p>
+    <div class="loader" id="loader"style="display:block"></div>
+ 
 <!--<button id="search" onclick="loadKnowlegebase()">Search</button>-->
-<a id="search"onclick="loadResults()"class="btn btn-floating pulse"><i class="material-icons">search</i></a>
- <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Ingredient(s)"style="font-family:Arial, FontAwesome" id="query" name="name" />
+<a id="search"onclick="loadResults()" class="btn btn-floating pulse"><i class="material-icons">search</i></a>
+ <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Ingredient(s)"style="font-family:Arial, FontAwesome" id="query" name="name"required />
  </div>
- <div class="card blue-grey darken-1">
  <div class="card-panel dark grey lighten-2">
        <div id="tablePrint"> </div>
        <!--<img src="http://img.recipepuppy.com/622460.jpg">-->
        </div>
-       </div>
-       </div>
+<!-- <form action='{{url_for("addRecipe")}}' method=POST><button type="submit" name="submit" id="save" value="OKAY">Save Recipe</button></form>        -->
+</div>
 
 {% endblock %}

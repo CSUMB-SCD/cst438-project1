@@ -1,0 +1,60 @@
+{% extends 'homeLayout.html' %} {% block body %}
+<script>
+    var key = '{{key}}';
+    var app = '{{ name }}';
+    var loadNutrition = function() {
+        //alert("inside");
+        var clear = '';
+        document.getElementById('tablePrint2').innerHTML = clear;
+        let userValue = document.getElementById("query").value;
+        // document.getElementById("button").style.display='block';
+        // document.getElementById("query2").style.display='block';
+        console.log("userValue ", userValue);
+
+        var ourRequest = new XMLHttpRequest();
+        // ourRequest.open('GET','http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
+        ourRequest.open('GET', 'https://api.nutritionix.com/v1_1/search/' + userValue + '?appId=' + app + '&appKey=' + key);
+        // ourRequest.open('GET','https://api.nutritionix.com/v1_1/search/'+userValue+'?appId=62a70248'+'&appKey=4c6269d3d4c26690f9511d2103eccc48');
+        // ourRequest.open('GET',url);
+        ourRequest.send();
+        ourRequest.onreadystatechange = function() {
+            if (ourRequest.readyState == XMLHttpRequest.DONE && ourRequest.status == 200) {
+                var ourData = ourRequest.responseText;
+                //console.log("ourData ", ourData);
+                var json = JSON.parse(ourData);
+
+                display3(json);
+            }
+        };
+
+    };
+</script>
+
+
+<!--<h1>Nutrition Facts</h1>-->
+<div class="loader" id="loader" style="display:block"></div>
+
+<div class="wrap">
+    <div class="popup" onclick="myFunction()">
+        <a id="question" class="btn btn-floating pulse red"><i class="material-icons">help</i></a>
+        <span class="popuptext" id="myPopup">1)Enter Recipe & click on ID</span>
+    </div>
+
+    <div class="card-panel green lighten-2">
+        <!--<button id="nutrition"onclick="loadNutrition()">Search</button>-->
+        <a id="nutrition" class="btn btn-floating pulse" onclick="loadNutrition()"><i class="material-icons">search</i></a>
+        <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Enter Recipe" style="font-family:Arial, FontAwesome" id="query" name="name" />
+        <br>
+        <!--<button id="button"onclick="getNutritionFacts()">NutritionSearch</button>-->
+        <!--<a id="button"class="btn btn-floating pulse"onclick="getNutritionFacts()"><i class="material-icons">search</i></a>-->
+
+        <!--<input   data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Enter Item ID or click on ID"style="font-family:Arial, FontAwesome" id="query2" name="name" />-->
+    </div>
+    <div class="card-panel dark grey lighten-2">
+        <div id="tablePrint2"> </div>
+        <div id="tablePrint"> </div>
+
+    </div>
+</div>
+
+{% endblock %}

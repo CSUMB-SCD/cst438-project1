@@ -34,16 +34,16 @@
             myTable+='<thead>';
             myTable+='<tr>';
             myTable+='<th>';
-            myTable+='title';
+            myTable+='Title';
             myTable+='</th>';
+            // myTable+='<th>';
+            // myTable+='Save Recipe';
+            // myTable+='</th>';
+            // myTable+='<th>';
+            // myTable+='ingredients';
+            // myTable+='</th>';
             myTable+='<th>';
-            myTable+='Save Recipe';
-            myTable+='</th>';
-            myTable+='<th>';
-            myTable+='ingredients';
-            myTable+='</th>';
-            myTable+='<th>';
-            myTable+='thumbnail';
+            myTable+='Thumbnail';
             myTable+='</th>';
             myTable+='</tr>';
             myTable+='</thead>';
@@ -57,12 +57,12 @@
             myTable+='<td>';
             myTable+='<a href='+'"'+ourData['results']['results'][i]['href']+'"'+'>'+ourData['results']['results'][i]['title']+'</a>';
             myTable+='</td>';
-            myTable+='<td>';
-            myTable+='<input action=' + "/addRecipe" + ' class="btn btn-primary btn-sm" type="submit" name="submit" id="save" value='+ href + '>Save Recipe</input>';
-            myTable+='</td>';
-            myTable+='<td>';
-            myTable+=ourData['results']['results'][i]['ingredients'];
-            myTable+='</td>';
+            // myTable+='<td>';
+            // myTable+='<form action={{url_for("addRecipe")}} method=POST><input class="button" type="submit" name="submit" id="save" value='+ href + '>'Save Recipe'</input></form>';
+            // myTable+='</td>';
+            // myTable+='<td>';
+            // myTable+=ourData['results']['results'][i]['ingredients'];
+            // myTable+='</td>';
             myTable+='<td>';
             // myTable+=ourData['results']['results'][i]['thumbnail'];
             myTable+='<img src='+'"'+ourData['results']['results'][i]['thumbnail']+'"'+'>';
@@ -96,8 +96,7 @@
  <div class="card-panel dark grey lighten-2">
        <div id="tablePrint"> </div>
        <!--<img src="http://img.recipepuppy.com/622460.jpg">-->
-       </div>
-       </div>
-
+       </div>     
+</div>
 
 {% endblock %}

@@ -28,16 +28,16 @@ def nutrition1():
 def login2():
     if request.method == 'POST':
         users = mongo.db.users
-        hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-        user = users.find({'username' : request.form['username'], 'password' : hashpass})
+        # hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+        hashpass = request.form['pass']
+        user = users.find({'username' : request.form['name'], 'password' : hashpass})
         if user is None:
             print 'user doesnt exist!'
             return 'User doesnt exist'
         else:
             print 'user exists!'
-            session['username'] = request.form['username']
+            session['username'] = request.form['name']
             return redirect(url_for('home'))
-
         # if users.find( { $and: [ { username : request.form['username']}, {password : request.form['password'] } ] }  ):
         #     return redirect(url_for('home'))
     if request.method == 'GET':
@@ -52,7 +52,8 @@ def register():
         print 'After find_one is called'
         if user is None:
             # todo: check if password == confirm password
-            hashpass = bcrypt.hashpw(request.form['regpass'].encode('utf-8'), bcrypt.gensalt())
+            # hashpass = bcrypt.hashpw(request.form['regpass'].encode('utf-8'), bcrypt.gensalt())
+            hashpass = request.form['regpass']
             users.insert({'username' : request.form['regname'], 'password' : hashpass})
             session['username'] = request.form['regname']
             print session['username']
@@ -71,6 +72,9 @@ def home():
         print 'inside ' + session['username'] + 's profile!'
         return render_template('userHome.html')
     return 'user doesnt exist but still tried to proceed to home?'
+@app.route('/userNutrition')
+def userNutrition():
+    return render_template('userNutrition.html')
 @app.route('/')
 def login():
   return render_template('login.html')
@@ -90,11 +94,22 @@ def results(results_id):
 	    return jsonify({'results': jsonObject})
     except URLError, e:
         print ' Got an error code:', e
-@app.route('/addRecipe',methods=['POST'])
+@app.route('/guestHome',methods=['POST'])
 def addRecipe():
+    print "addRECIPE function!"
     if request.method == 'POST':
+        print '!!!!!!!! IN ADD FUNCTION !!!!!!'
         print request.form['submit']
-        pass # do something
+        users = mongo.db.users
+        # users.update_one(
+        # {"username": session['username']},
+        # {
+        # "$set": {
+        #     "link" : 
+        # }
+        # }
+    # )
+        return redirect(url_for('results')) # do something
 @app.route('/nutritionApi/v1_1/search/<phrase>',methods=['GET'])
 def nutritionApi(phrase):
     print phrase
@@ -112,7 +127,11 @@ def nutritionApi(phrase):
 @app.route('/guestHome')
 def guestHome():
 	return render_template('guestHome.html')
-
+@app.route('/logout')
+def logout():
+    app.secret_key = 'no user'
+    session['username'] = None
+    return redirect(url_for('login'))
 if __name__ == "__main__":
     app.secret_key = 'secretkey'
     app.run(host='0.0.0.0', port=int(8080), debug=True)
