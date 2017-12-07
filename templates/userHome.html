@@ -1,12 +1,13 @@
 {% extends 'userLayout.html' %}
 {% block body %}
-
 <script>
+    var key;
+    var appName;
     // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
     var loadResults = function(){
         let userValue = document.getElementById("query").value;
         console.log("userValue ", userValue);
-        
+
         var ourRequest= new XMLHttpRequest();
         // ourRequest.open('GET','http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
         ourRequest.open('GET','/todo/api/v0.1/results/' + userValue);
@@ -57,7 +58,7 @@
         for(var i=0;i<ourData['results']['results'].length;i++){
             href=ourData['results']['results'][i]['href'];
             recipeName=ourData['results']['results'][i]['title'];
-            myTable+='<tr>';  
+            myTable+='<tr>'; 
             myTable+='<td>';
             myTable+='<a href='+'"'+ourData['results']['results'][i]['href']+'"'+'>'+ourData['results']['results'][i]['title']+'</a>';
             myTable+='</td>';
@@ -78,7 +79,7 @@
            myTable+='</tr>';
         }
         myTable+='</tbody>';
-         
+
         myTable+='</table>';
         document.getElementById('tablePrint').innerHTML = myTable;
 
@@ -88,7 +89,7 @@
 //      loadKnowlegebase();
 // }
 </script>
-<!--<h1>Welcome to Recipe Finder</h1>-->
+<div class="wrap">
 <div class="wrap">
     <div class="popup" onclick="myFunction()">
     <a id="question"class="btn btn-floating pulse red"><i class="material-icons">help</i></a>
