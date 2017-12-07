@@ -26,7 +26,8 @@
     };
 
     var display=function(ourData){
-        var recipe;
+        var href;
+        var recipeName;
         // var show=document.getElementById("tablePrint");
         var myTable='<table class="highlight">';
         // myTable+='<caption>Recipes</caption>';
@@ -37,7 +38,7 @@
             myTable+='title';
             myTable+='</th>';
             myTable+='<th>';
-            myTable+='href';
+            myTable+='Save Recipe';
             myTable+='</th>';
             myTable+='<th>';
             myTable+='ingredients';
@@ -51,13 +52,14 @@
     
             //alert(ourData['results']['results'].length);
         for(var i=0;i<ourData['results']['results'].length;i++){
+            href=ourData['results']['results'][i]['href'];
+            recipeName=ourData['results']['results'][i]['title'];
             myTable+='<tr>';  
             myTable+='<td>';
-            myTable+=ourData['results']['results'][i]['title'];
+            myTable+='<a href='+'"'+ourData['results']['results'][i]['href']+'"'+'>'+ourData['results']['results'][i]['title']+'</a>';
             myTable+='</td>';
             myTable+='<td>';
-            recipe=ourData['results']['results'][i]['href'];
-            myTable+='<a href='+'"'+recipe+'"'+'>'+"recipe"+'</a>';
+            myTable+='<input action=' + "/addRecipe" + ' class="btn btn-primary btn-sm" type="submit" name="submit" id="save" value='+ href + '>Save Recipe</input>';
             myTable+='</td>';
             myTable+='<td>';
             myTable+=ourData['results']['results'][i]['ingredients'];

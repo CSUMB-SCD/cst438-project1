@@ -89,6 +89,11 @@ def results(results_id):
 	    return jsonify({'results': jsonObject})
     except URLError, e:
         print ' Got an error code:', e
+@app.route('/addRecipe',methods=['POST'])
+def addRecipe():
+    if request.method == 'POST':
+        print request.form['submit']
+        pass # do something
 @app.route('/nutritionApi/v1_1/search/<phrase>',methods=['GET'])
 def nutritionApi(phrase):
     print phrase
@@ -99,7 +104,7 @@ def nutritionApi(phrase):
         response=urlopen(request)
         nutrition=response.read()
         jsonObject=json.loads(nutrition)
-        print jsonObject['hits']
+        # print jsonObject['hits']
         return jsonify({'hits':jsonObject})
     except URLError, e:
         print ' Got an error code:', e
