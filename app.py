@@ -7,7 +7,7 @@ from flask_cors import CORS
 import json
 import bcrypt
 
-app = Flask(__main__)
+app = Flask(__name__)
 
 # string user = os.environ['user']
 # pwd = os.environ['dbpwd']
