@@ -100,6 +100,7 @@ def addRecipe():
         print '!!!!!!!! IN ADD FUNCTION !!!!!!'
         print request.form['submit']
         users = mongo.db.users
+        user = users.find_one(session['username'])
         # users.update_one(
         # {"username": session['username']},
         # {

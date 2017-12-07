@@ -3,6 +3,7 @@
 <script>
     var key;
     var appName;
+    var table;
     // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
     var loadResults = function(){
         let userValue = document.getElementById("query").value;
@@ -19,6 +20,7 @@
                 console.log("ourData ", ourData);
                 var json = JSON.parse(ourData);
 
+                // table = display(json);
                 display(json);
             }
         };
@@ -53,7 +55,7 @@
             myTable+='</tr>';
             myTable+='</thead>';
             myTable+='<tbody>';
-        var hasBeenAdded;
+        // var hasBeenAdded;
             //alert(ourData['results']['results'].length);
         for(var i=0;i<ourData['results']['results'].length;i++){
             href=ourData['results']['results'][i]['href'];
@@ -74,16 +76,23 @@
             myTable+='</td>';
             myTable+='<td>';
             // myTable+='<input class="button" type="submit" name="submit" id="save" value='+ href + '>'Save Recipe'</input>';
-            myTable+='<i class="material-icons">add_circle</i>'
+            myTable+='<p id="add-recipe"><i class="material-icons">add_circle</i></p>'
             myTable+='</td>';
            myTable+='</tr>';
         }
         myTable+='</tbody>';
 
         myTable+='</table>';
-        document.getElementById('tablePrint').innerHTML = myTable;
 
+        $('#add-recipe').click(function(){
+            // $('#display_advance').toggle('1000');
+             $(this).find('i').text('check_circle')
+             alert("ADDED!");
+        });
+        document.getElementById('tablePrint').innerHTML = myTable;
+        // return myTable;
     };
+
 
 // window.onload = function(){
 //      loadKnowlegebase();
