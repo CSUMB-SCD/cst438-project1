@@ -1,6 +1,6 @@
 {% extends 'userLayout.html' %}
 {% block body %}
-<script> 
+<script>
     var key;
     var appName;
 
@@ -8,7 +8,7 @@
     var loadResults = function(){
         let userValue = document.getElementById("query").value;
         console.log("userValue ", userValue);
-        
+
         var ourRequest= new XMLHttpRequest();
         // ourRequest.open('GET','http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
         ourRequest.open('GET','/todo/api/v0.1/results/' + userValue);
@@ -49,10 +49,10 @@
             myTable+='</tr>';
             myTable+='</thead>';
             myTable+='<tbody>';
-    
+
             //alert(ourData['results']['results'].length);
         for(var i=0;i<ourData['results']['results'].length;i++){
-            myTable+='<tr>';  
+            myTable+='<tr>';
             myTable+='<td>';
             myTable+=ourData['results']['results'][i]['title'];
             myTable+='</td>';
@@ -70,7 +70,7 @@
            myTable+='</tr>';
         }
         myTable+='</tbody>';
-         
+
         myTable+='</table>';
         document.getElementById('tablePrint').innerHTML = myTable;
 
@@ -80,6 +80,7 @@
 //      loadKnowlegebase();
 // }
 </script>
+
 <div class="wrap">
 <!--<h1>Welcome to Recipe Finder</h1>-->
 <div class="card-panel green lighten-2">
