@@ -133,7 +133,7 @@ def logout():
     return redirect(url_for('login'))
 @app.route('/chat')
 def chat():
-    return render_template('chat2.html')b
+    return render_template('chat2.html')
 if __name__ == "__main__":
     app.secret_key = 'secretkey'
     app.run(host='0.0.0.0', port=int(8080), debug=True)
