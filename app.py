@@ -47,13 +47,14 @@ def register():
     if request.method == 'POST':
         users = mongo.db.users
         print 'Inside register'
-        user = users.find_one({'username' : request.form['username']})
+        print users
+        user = users.find_one({'username' : request.form['regname']})
         print 'After find_one is called'
         if user is None:
             # todo: check if password == confirm password
-            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            users.insert({'username' : request.form['username'], 'password' : hashpass})
-            session['username'] = request.form['username']
+            hashpass = bcrypt.hashpw(request.form['regpass'].encode('utf-8'), bcrypt.gensalt())
+            users.insert({'username' : request.form['regname'], 'password' : hashpass})
+            session['username'] = request.form['regname']
             print session['username']
             print 'Registering user!'
             return redirect(url_for('home'))
