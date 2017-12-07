@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 CORS(app)
 # string user = os.environ['user']
-# pwd = os.environ['dbpwd'] 
+# pwd = os.environ['dbpwd']
 
 app.config['MONGO_DBNAME'] = 'recipe_finder_users'
 # app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
@@ -28,38 +28,40 @@ def nutrition1():
 def login2():
     if request.method == 'POST':
         users = mongo.db.users
-        hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-        user = users.find({'username' : request.form['username'], 'password' : hashpass})
+        # hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+        hashpass = request.form['pass']
+        #user = users.find({'username' : request.form['username'], 'password' : hashpass})
+        user = users.find_one({'username' : request.form['name']})
+
         if user is None:
             print 'user doesnt exist!'
-            return 'User doesnt exist'
-        else:
+            return redirect(url_for('login'))
+            # password = users.find_one({'password' : hashpass})
+            #get the password from the database and set it equal to variable password
+        if user['password'] == hashpass:
             print 'user exists!'
-            session['username'] = request.form['username']
+            session['username'] = request.form['name']
             return redirect(url_for('home'))
-
+        print hashpass
+        print user['password']
+        return 'THERES A USER BUT ITS THE WRONG CREDENTIALS'
         # if users.find( { $and: [ { username : request.form['username']}, {password : request.form['password'] } ] }  ):
         #     return redirect(url_for('home'))
-    if request.method == 'GET':
-        return ''
+    else:
+        return redirect(url_for('login'))
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
         users = mongo.db.users
-        print 'Inside register'
-        print users
         user = users.find_one({'username' : request.form['regname']})
         print 'After find_one is called'
         if user is None:
             # todo: check if password == confirm password
-            hashpass = bcrypt.hashpw(request.form['regpass'].encode('utf-8'), bcrypt.gensalt())
+            # hashpass = bcrypt.hashpw(request.form['regpass'].encode('utf-8'), bcrypt.gensalt())
+            hashpass = request.form['regpass']
             users.insert({'username' : request.form['regname'], 'password' : hashpass})
             session['username'] = request.form['regname']
-            print session['username']
-            print 'Registering user!'
             return redirect(url_for('home'))
-        print user
-        print request.form['username']
         return 'User already exists!';
     if request.method == 'GET':
         return ''
