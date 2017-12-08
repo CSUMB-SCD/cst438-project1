@@ -35,8 +35,9 @@ def login2():
             return redirect(url_for('login'))
             # password = users.find_one({'password' : hashpass})
             #get the password from the database and set it equal to variable password
+        print user['password']
         if user['password'] == hashpass:
-            print 'user exists!'
+            print 'user exists! [in login2]'
             session['username'] = request.form['name']
             return redirect(url_for('home'))
         print hashpass
