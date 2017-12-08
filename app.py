@@ -38,6 +38,7 @@ def login2():
         print user['password']
         if user['password'] == hashpass:
             print 'user exists! [in login2]'
+            app.secret_key = 'secretkey'
             session['username'] = request.form['name']
             return redirect(url_for('home'))
         print hashpass
