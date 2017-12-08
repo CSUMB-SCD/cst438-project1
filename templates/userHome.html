@@ -1,11 +1,9 @@
 {% extends 'userLayout.html' %}
 {% block body %}
 <script>
-    var key;
-    var appName;
-    var table;
+
     // var url="http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
-    var loadResults = function(){
+    var loadResults10 = function(){
         let userValue = document.getElementById("query").value;
         console.log("userValue ", userValue);
 
@@ -21,13 +19,13 @@
                 var json = JSON.parse(ourData);
 
                 // table = display(json);
-                display(json);
+                display10(json);
             }
         };
 
     };
 
-    var display=function(ourData){
+    var display10=function(ourData){
         var href;
         var recipeName;
         // var show=document.getElementById("tablePrint");
@@ -76,22 +74,37 @@
             myTable+='</td>';
             myTable+='<td>';
             // myTable+='<input class="button" type="submit" name="submit" id="save" value='+ href + '>'Save Recipe'</input>';
-            myTable+='<p id="add-recipe"><i class="material-icons">add_circle</i></p>'
+            myTable += '<button class="add_recipe" onclick="getID10();" style="background-color: Transparent" ><i class="material-icons">add_circle</i></button>';
+            //myTable+='<p id="add-recipe"><i class="material-icons">add_circle</i></p>'
             myTable+='</td>';
            myTable+='</tr>';
         }
         myTable+='</tbody>';
 
         myTable+='</table>';
-
-        $('#add-recipe').click(function(){
-            // $('#display_advance').toggle('1000');
-             $(this).find('i').text('check_circle')
-             alert("ADDED!");
-        });
-        document.getElementById('tablePrint').innerHTML = myTable;
+            document.getElementById('tablePrint').innerHTML = myTable;
+        };
+        // document.getElementById('tablePrint').innerHTML = myTable;
         // return myTable;
-    };
+        var getID10 = function(){
+            // $('.add_recipe').click(function(){
+            //     alert("sucks");
+                // $('#display_advance').toggle('1000');
+                //  $(this).find('i').text('check_circle')
+            //      alert("ADDED!");
+            //     });
+                $(function() {
+        $('.add_recipe').click(function() {
+            //alert($(this).text());
+
+            // getNutritionFacts(id);
+            $(this).find('i').text('check_circle')
+            // $("#query2").val(id);
+            // or alert($(this).hash();
+        });
+    });
+        }
+    
 
 
 // window.onload = function(){
@@ -108,7 +121,7 @@
     <div class="loader" id="loader"style="display:block"></div>
  
 <!--<button id="search" onclick="loadKnowlegebase()">Search</button>-->
-<a id="search"onclick="loadResults()" class="btn btn-floating pulse"><i class="material-icons">search</i></a>
+<a id="search"onclick="loadResults10()" class="btn btn-floating pulse"><i class="material-icons">search</i></a>
  <input data-list="mylist" tabindex='1' list="mylist" type="text" placeholder="&#xF002; Ingredient(s)"style="font-family:Arial, FontAwesome" id="query" name="name"required />
  </div>
  <div class="card-panel dark grey lighten-2">
