@@ -76,7 +76,7 @@
             // myTable+='</td>';
 
             myTable+='<td>';
-            myTable+='<form action={{url_for("addRecipe")}} method=POST><input class="button" type="submit" name="submit" id="save"' + href + 'value=>Save Recipe</input></form>';
+            myTable+='<form action={{url_for("addRecipe")}} method=POST><button name="submit" id="save" value="' +href+ '">Save Recipe</button></form>';
             myTable+='</td>';
            myTable+='</tr>';
         }

@@ -106,6 +106,7 @@ def addRecipe():
         print request.form['submit']
         users = mongo.db.users
         user = users.find_one(session['username'])
+        print session['username']
         # users.update_one(
         # {"username": session['username']},
         # {
