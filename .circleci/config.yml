@@ -31,6 +31,7 @@ jobs:
           name: install dependencies
           command: |
             python -m virtualenv flask
+            source flask/bin/activate
             pip install flask
             pip install -r requirements.txt
 
