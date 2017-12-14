@@ -10,7 +10,6 @@ import bcrypt
 
 app = Flask(__name__)
 
-CORS(app)
 # string user = os.environ['user']
 # pwd = os.environ['dbpwd']
 
@@ -21,6 +20,7 @@ mongo = PyMongo(app)
 @app.route('/nutrition')
 def nutrition():
     return render_template('guestNutrition.html')
+app.route('')
 @app.route('/guestNutrition')
 def nutrition1():
     return render_template('guestNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
@@ -33,6 +33,7 @@ def login2():
         hashpass = request.form['pass']
         user = users.find_one({'username' : request.form['name']})
         if user is None:
+
              error = 'Invalid username or password. Please try again!'
 
         else:
@@ -45,6 +46,7 @@ def login2():
                 print 'wrong credentials'
         
         return render_template('login.html',error=error)
+
         # if users.find( { $and: [ { username : request.form['username']}, {password : request.form['password'] } ] }  ):
         #     return redirect(url_for('home'))
     else:
@@ -69,8 +71,10 @@ def register():
         return ''
 @app.route('/home')
 def home():
+    print 'inside home function!'
     if 'username' in session:
-        app.secret_key = session['username']
+        print 'inside session'
+        # app.secret_key = session['username']
         # return 'You are logged in as ' +  session['username']
         print 'inside ' + session['username'] + 's profile!'
         return render_template('userHome.html')
@@ -98,7 +102,7 @@ def results(results_id):
 	    return jsonify({'results': jsonObject})
     except URLError, e:
         print ' Got an error code:', e
-@app.route('/guestHome',methods=['POST'])
+@app.route('/home',methods=['POST'])
 def addRecipe():
     print "addRECIPE function!"
     if request.method == 'POST':
@@ -106,6 +110,7 @@ def addRecipe():
         print request.form['submit']
         users = mongo.db.users
         user = users.find_one(session['username'])
+        print session['username']
         # users.update_one(
         # {"username": session['username']},
         # {
@@ -114,7 +119,8 @@ def addRecipe():
         # }
         # }
     # )
-        return redirect(url_for('results')) # do something
+        return redirect(url_for('login2'))
+        # return redirect(url_for('results')) # do something
 @app.route('/nutritionApi/v1_1/search/<phrase>',methods=['GET'])
 def nutritionApi(phrase):
     print phrase
@@ -135,13 +141,15 @@ def guestHome():
 @app.route('/logout')
 def logout():
     app.secret_key = 'no user'
-    session['username'] = None
+    session.pop('username', None)
     return redirect(url_for('login'))
 @app.route('/chat')
 def chat():
     return render_template('chat2.html')
 if __name__ == "__main__":
     app.secret_key = 'secretkey'
+    # session.permanent = True
+    CORS(app)
     app.run(host='0.0.0.0', port=int(8080), debug=True)
     # app.run(
     # host=os.getenv('IP', '0.0.0.0'),
