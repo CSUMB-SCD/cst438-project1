@@ -63,19 +63,20 @@
             myTable+='<a href='+'"'+ourData['results']['results'][i]['href']+'"'+'>'+ourData['results']['results'][i]['title']+'</a>';
             myTable+='</td>';
             // myTable+='<td>';
-            // myTable+='<form action={{url_for("addRecipe")}} method=POST><input class="button" type="submit" name="submit" id="save" value='+ href + '>'Save Recipe'</input></form>';
-            // myTable+='</td>';
-            // myTable+='<td>';
             // myTable+=ourData['results']['results'][i]['ingredients'];
             // myTable+='</td>';
             myTable+='<td>';
             // myTable+=ourData['results']['results'][i]['thumbnail'];
             myTable+='<img src='+'"'+ourData['results']['results'][i]['thumbnail']+'"'+'>';
             myTable+='</td>';
-            myTable+='<td>';
+            // myTable+='<td>';
             // myTable+='<input class="button" type="submit" name="submit" id="save" value='+ href + '>'Save Recipe'</input>';
-            myTable += '<button class="add_recipe" onclick="getID10();" style="background-color: Transparent" ><i class="material-icons">add_circle</i></button>';
+            // myTable += '<button value='+ href + ' class="add_recipe" onclick="getID10();" style="background-color: Transparent" ><i class="material-icons">add_circle</i></button>';
             //myTable+='<p id="add-recipe"><i class="material-icons">add_circle</i></p>'
+            // myTable+='</td>';
+
+            myTable+='<td>';
+            myTable+='<form action={{url_for("addRecipe")}} method=POST><input class="button" type="submit" name="submit" id="save"' + href + 'value=>Save Recipe</input></form>';
             myTable+='</td>';
            myTable+='</tr>';
         }
@@ -93,16 +94,16 @@
                 //  $(this).find('i').text('check_circle')
             //      alert("ADDED!");
             //     });
-                $(function() {
         $('.add_recipe').click(function() {
             //alert($(this).text());
             
             // getNutritionFacts(id);
             $(this).find('i').text('check_circle')
+            var href = $(this).val();
+            alert(href);
             // $("#query2").val(id);
             // or alert($(this).hash();
         });
-    });
         }
     
 
