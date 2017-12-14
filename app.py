@@ -1,4 +1,5 @@
-from flask import Flask, render_template, jsonify, request, session, url_for, redirect
+from flask import Flask, render_template, jsonify, request, session, url_for, redirect, flash
+import Tkinter as tk
 from urllib2 import Request, urlopen, URLError
 from flask_pymongo import PyMongo
 # import requests
@@ -17,7 +18,6 @@ app.config['MONGO_DBNAME'] = 'recipe_finder_users'
 # app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
 app.config['MONGO_URI'] = 'mongodb://'+'utsab'+':'+'testing'+'@ds155325.mlab.com:55325/recipe_finder_users'
 mongo = PyMongo(app)
-
 @app.route('/nutrition')
 def nutrition():
     return render_template('guestNutrition.html')
@@ -26,29 +26,32 @@ def nutrition1():
     return render_template('guestNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
 @app.route('/login', methods=['POST', 'GET'])
 def login2():
+    error = None
     if request.method == 'POST':
         users = mongo.db.users
         # hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
         hashpass = request.form['pass']
         user = users.find_one({'username' : request.form['name']})
         if user is None:
-            print 'user doesnt exist!'
-            return redirect(url_for('login'))
-            # password = users.find_one({'password' : hashpass})
-            #get the password from the database and set it equal to variable password
-        if user['password'] == hashpass:
-            print 'user exists!'
-            session['username'] = request.form['name']
-            return redirect(url_for('home'))
-        print hashpass
-        print user['password']
-        return 'THERES A USER BUT ITS THE WRONG CREDENTIALS'
+             error = 'Invalid username or password. Please try again!'
+
+        else:
+            if user['password'] == hashpass:
+                print 'user exists!'
+                session['username'] = request.form['name']
+                print user['password']
+                return redirect(url_for('home'))
+            else:
+                print 'wrong credentials'
+        
+        return render_template('login.html',error=error)
         # if users.find( { $and: [ { username : request.form['username']}, {password : request.form['password'] } ] }  ):
         #     return redirect(url_for('home'))
     else:
         return redirect(url_for('login'))
 @app.route('/register', methods=['POST', 'GET'])
 def register():
+    error = None
     if request.method == 'POST':
         users = mongo.db.users
         user = users.find_one({'username' : request.form['regname']})
@@ -60,7 +63,8 @@ def register():
             users.insert({'username' : request.form['regname'], 'password' : hashpass})
             session['username'] = request.form['regname']
             return redirect(url_for('home'))
-        return 'User already exists!';
+        error="Sorry Username is taken!"    
+        return render_template('login.html',error=error)
     if request.method == 'GET':
         return ''
 @app.route('/home')
