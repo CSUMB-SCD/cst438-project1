@@ -9,7 +9,6 @@ import bcrypt
 
 app = Flask(__name__)
 
-CORS(app)
 # string user = os.environ['user']
 # pwd = os.environ['dbpwd']
 
@@ -36,8 +35,10 @@ def login2():
             return redirect(url_for('login'))
             # password = users.find_one({'password' : hashpass})
             #get the password from the database and set it equal to variable password
+        print user['password']
         if user['password'] == hashpass:
-            print 'user exists!'
+            print 'user exists! [in login2]'
+            app.secret_key = 'secretkey'
             session['username'] = request.form['name']
             return redirect(url_for('home'))
         print hashpass
@@ -65,7 +66,9 @@ def register():
         return ''
 @app.route('/home')
 def home():
+    print 'inside home function!'
     if 'username' in session:
+        print 'inside session'
         app.secret_key = session['username']
         # return 'You are logged in as ' +  session['username']
         print 'inside ' + session['username'] + 's profile!'
@@ -138,6 +141,7 @@ def chat():
     return render_template('chat2.html')
 if __name__ == "__main__":
     app.secret_key = 'secretkey'
+    CORS(app)
     app.run(host='0.0.0.0', port=int(8080), debug=True)
     # app.run(
     # host=os.getenv('IP', '0.0.0.0'),
