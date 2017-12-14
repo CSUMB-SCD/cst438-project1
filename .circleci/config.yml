@@ -49,7 +49,7 @@ jobs:
           name: run tests
           command: |
             source flask/bin/activate
-            python test.py test
+            python tests/test.py test
 
       - store_artifacts:
           path: test-reports
