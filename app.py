@@ -110,29 +110,29 @@ def results(results_id):
 @app.route('/home',methods=['GET'])
 def addRecipe():
     print "addRECIPE function!"
-    if request.method == 'GET':
-        print '!!!!!!!! IN ADD FUNCTION !!!!!!'
-        print request.form['submit']
-        users = mongo.db.users
-        user = users.find_one({'username' : session['username']})
-        print session['username']
-        if user is None:
-            print 'User doesnt exist!'
-        else:
-            print 'User exists!'
-            # for doc in user['recipe']
-            #     print(doc)
-            print user['recipe']  #null
-            print user
-            if user['recipe'] == 'null':
-                user['recipe'] = request.form['submit']
-            #else:
-            # print users
-            # users.update_one({user['_id']},{ "$set": { "recipe": request.form['submit']} })
-            # users.update({user['_id']},{ "$set": { "recipe": request.form['submit']} })
-            print user['recipe']
-            users.save(user)
-            return Response(user['recipe'])
+    print '!!!!!!!! IN ADD FUNCTION !!!!!!'
+    print request.form['submit']
+    users = mongo.db.users
+    user = users.find_one({'username' : session['username']})
+    print session['username']
+    if user is None:
+        print 'User doesnt exist!'
+        return 'ERROR: EITHER PREVIOUS USER HAS BEEN LOGGED OUT'
+    else:
+        print 'User exists!'
+        # for doc in user['recipe']
+        #     print(doc)
+        print user['recipe']  #null
+        print user
+        if user['recipe'] == 'null':
+            user['recipe'] = request.form['submit']
+        #else:
+        # print users
+        # users.update_one({user['_id']},{ "$set": { "recipe": request.form['submit']} })
+        # users.update({user['_id']},{ "$set": { "recipe": request.form['submit']} })
+        print user['recipe']
+        users.save(user)
+        return Response(user['recipe'])
 @app.route('/recipe')
 def recipe():
     users = mongo.db.users
