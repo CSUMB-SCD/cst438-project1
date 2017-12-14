@@ -44,11 +44,12 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       # run tests!
+      # test.py is test file
       - run:
           name: run tests
           command: |
             source flask/bin/activate
-            python app.py test
+            python test.py test
 
       - store_artifacts:
           path: test-reports
