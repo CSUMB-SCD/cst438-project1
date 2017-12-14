@@ -94,7 +94,7 @@ def home():
         # return 'You are logged in as ' +  session['username']
         print 'inside ' + session['username'] + 's profile!'
         return render_template('userHome.html')
-    return 'user doesnt exist but still tried to proceed to home?'
+    return 'ERROR: PREVIOUS USER HAS BEEN LOGGED OUT'
 @app.route('/userNutrition')
 def userNutrition():
     return render_template('userNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
@@ -128,7 +128,7 @@ def addRecipe():
     print session['username']
     if user is None:
         print 'User doesnt exist!'
-        return 'ERROR: EITHER PREVIOUS USER HAS BEEN LOGGED OUT'
+        return 'ERROR: PREVIOUS USER HAS BEEN LOGGED OUT'
     else:
         print 'User exists!'
         # for doc in user['recipe']
