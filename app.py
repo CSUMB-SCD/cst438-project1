@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request, session, url_for, redirect, flash
+from flask_session import Session
 from urllib2 import Request, urlopen, URLError
 from flask_pymongo import PyMongo
 # import requests
@@ -8,7 +9,7 @@ import json
 import bcrypt
 
 app = Flask(__name__)
-
+# sess = Session()
 # string user = os.environ['user']
 # pwd = os.environ['dbpwd']
 
@@ -16,6 +17,16 @@ app.config['MONGO_DBNAME'] = 'recipe_finder_users'
 # app.config['MONGO_URI'] = 'mongodb://'+os.environ['user']+':'+os.environ['dbpwd'] +'@ds155325.mlab.com:55325/recipe_finder_users'
 app.config['MONGO_URI'] = 'mongodb://'+'utsab'+':'+'testing'+'@ds155325.mlab.com:55325/recipe_finder_users'
 mongo = PyMongo(app)
+
+# app.secret_key = 'secretkey'
+app.config['SECRET_KEY'] = 'secretkey'
+# sess.init_app(app)
+CORS(app)
+# app.config['SECRET_KEY'] = 'secretkey'
+# app.config['SESSION_TYPE'] = 'mongodb'
+# session.permanent = True
+
+
 @app.route('/nutrition')
 def nutrition():
     return render_template('guestNutrition.html')
@@ -176,9 +187,6 @@ def logout():
 def chat():
     return render_template('chat2.html')
 if __name__ == "__main__":
-    app.secret_key = 'secretkey'
-    # session.permanent = True
-    CORS(app)
     app.run(host='0.0.0.0', port=int(8080), debug=True)
     # app.run(
     # host=os.getenv('IP', '0.0.0.0'),
