@@ -23,7 +23,7 @@ def nutrition():
 @app.route('/guestNutrition')
 def nutrition1():
     return render_template('guestNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET'])
 def login2():
     if request.method == 'POST':
         users = mongo.db.users
