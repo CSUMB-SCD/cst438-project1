@@ -23,7 +23,7 @@ def nutrition():
 @app.route('/guestNutrition')
 def nutrition1():
     return render_template('guestNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/', methods=['POST', 'GET'])
 def login2():
     if request.method == 'POST':
         users = mongo.db.users
@@ -76,6 +76,7 @@ def home():
     return 'user doesnt exist but still tried to proceed to home?'
 @app.route('/userNutrition')
 def userNutrition():
+    session['username'] = app.secret_key
     return render_template('userNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
     # return redirect(url_f)
 @app.route('/')
