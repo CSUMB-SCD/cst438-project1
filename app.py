@@ -43,8 +43,8 @@ def login2():
                 print user['password']
                 return redirect(url_for('home'))
             else:
-                print 'wrong credentials'
-        
+                error = 'Invalid username or password. Please try again!'
+
         return render_template('login.html',error=error)
 
         # if users.find( { $and: [ { username : request.form['username']}, {password : request.form['password'] } ] }  ):
@@ -60,13 +60,18 @@ def register():
         print 'After find_one is called'
         if user is None:
             # todo: check if password == confirm password
+            if request.form['regpass'] != request.form['reregpass']:
+                error = "Passwords do not match"
+                return render_template('login.html',error=error)
             # hashpass = bcrypt.hashpw(request.form['regpass'].encode('utf-8'), bcrypt.gensalt())
             hashpass = request.form['regpass']
             users.insert({'username' : request.form['regname'], 'password' : hashpass})
             session['username'] = request.form['regname']
             return redirect(url_for('home'))
-        error="Sorry Username is taken!"    
+        error="Sorry Username is taken!"
         return render_template('login.html',error=error)
+
+
     if request.method == 'GET':
         return ''
 @app.route('/home')
@@ -115,7 +120,7 @@ def addRecipe():
         # {"username": session['username']},
         # {
         # "$set": {
-        #     "link" : 
+        #     "link" :
         # }
         # }
     # )
