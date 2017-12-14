@@ -5,3 +5,4 @@ python-dev
 libblas-dev
 libatlas-base-dev
 cython
+python-tk
