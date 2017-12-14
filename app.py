@@ -46,6 +46,7 @@ def login2():
                 error = 'Invalid username or password. Please try again!'
 
         return render_template('login.html',error=error)
+        #return redirect(url_for(,error=error)
 
         # if users.find( { $and: [ { username : request.form['username']}, {password : request.form['password'] } ] }  ):
         #     return redirect(url_for('home'))
