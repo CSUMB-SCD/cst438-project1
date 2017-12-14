@@ -59,7 +59,7 @@ def register():
             # todo: check if password == confirm password
             # hashpass = bcrypt.hashpw(request.form['regpass'].encode('utf-8'), bcrypt.gensalt())
             hashpass = request.form['regpass']
-            users.insert({'username' : request.form['regname'], 'password' : hashpass})
+            users.insert({'username' : request.form['regname'], 'password' : hashpass, 'recipe' : 'null'})
             session['username'] = request.form['regname']
             return redirect(url_for('home'))
         return 'User already exists!';
@@ -98,15 +98,39 @@ def results(results_id):
 	    return jsonify({'results': jsonObject})
     except URLError, e:
         print ' Got an error code:', e
-@app.route('/home',methods=['POST'])
+@app.route('/home',methods=['GET'])
 def addRecipe():
     print "addRECIPE function!"
-    if request.method == 'POST':
+    if request.method == 'GET':
         print '!!!!!!!! IN ADD FUNCTION !!!!!!'
         print request.form['submit']
         users = mongo.db.users
-        user = users.find_one(session['username'])
+        user = users.find_one({'username' : session['username']})
         print session['username']
+        if user is None:
+            print 'User doesnt exist!'
+        else:
+            print 'User exists!'
+            # for doc in user['recipe']
+            #     print(doc)
+            print user['recipe']  #null
+            print user
+            if user['recipe'] == 'null':
+                user['recipe'] = request.form['submit']
+            #else:
+            # print users
+            # users.update_one({user['_id']},{ "$set": { "recipe": request.form['submit']} })
+            # users.update({user['_id']},{ "$set": { "recipe": request.form['submit']} })
+            print user['recipe']
+            users.save(user)
+            return Response(user['recipe'])
+@app.route('/recipe')
+def recipe():
+    users = mongo.db.users
+    user = users.find_one({'username' : session['username']})
+    userRecipe = user['recipe']
+    return render_template('userRecipe.html', recipe = userRecipe)
+
         # users.update_one(
         # {"username": session['username']},
         # {
@@ -115,7 +139,7 @@ def addRecipe():
         # }
         # }
     # )
-        return redirect(url_for('login2'))
+        # return redirect(url_for('login2'))
         # return redirect(url_for('results')) # do something
 @app.route('/nutritionApi/v1_1/search/<phrase>',methods=['GET'])
 def nutritionApi(phrase):

@@ -1,0 +1,13 @@
+{% extends 'userLayout.html' %}
+{% block body %}
+<script>
+	var recipe = '{{recipe}}';
+	var myTable='<div><table class="highlight">';
+	myTable+='<thead>';
+    myTable+='<tr>';
+    myTable+='<th>';
+    myTable+=recipe;
+    myTable+='</th>';
+    myTable+='</table></div>';
+</script>	
+{% endblock %}
