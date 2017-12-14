@@ -76,7 +76,7 @@ def home():
     return 'user doesnt exist but still tried to proceed to home?'
 @app.route('/userNutrition')
 def userNutrition():
-    session['username'] = app.secret_key
+    # session['username'] = app.secret_key
     return render_template('userNutrition.html',name=os.environ['appId'],key=os.environ['appKey'])
     # return redirect(url_f)
 @app.route('/')
