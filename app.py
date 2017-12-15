@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify, request, session, url_for, redirect, flash
-from flask_session import Session
 from urllib2 import Request, urlopen, URLError
 from flask_pymongo import PyMongo
 # import requests
@@ -118,7 +117,7 @@ def results(results_id):
 	    return jsonify({'results': jsonObject})
     except URLError, e:
         print ' Got an error code:', e
-@app.route('/home',methods=['GET'])
+@app.route('/home',methods=['POST'])
 def addRecipe():
     print "addRECIPE function!"
     print '!!!!!!!! IN ADD FUNCTION !!!!!!'
@@ -143,7 +142,9 @@ def addRecipe():
         # users.update({user['_id']},{ "$set": { "recipe": request.form['submit']} })
         print user['recipe']
         users.save(user)
-        return Response(user['recipe'])
+        return redirect(url_for('home'))
+        # return Response(user['recipe']) #this is for GET
+
 @app.route('/recipe')
 def recipe():
     users = mongo.db.users
