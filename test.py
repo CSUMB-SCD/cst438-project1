@@ -2,7 +2,7 @@ import unittest
 from test import *
 
 def test():
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestStringMethods)
 
 class TestStringMethods(unittest.TestCase):
     def test_upper(self):
