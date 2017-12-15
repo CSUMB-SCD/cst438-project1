@@ -1,6 +1,13 @@
 
 {% extends 'homeLayout.html' %}
 {% block body %}
+<script>
+   function myFunction() {
+
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+</script>
 
 <div class="materialContainer">
 
@@ -64,9 +71,14 @@
          <div class="button">
             <button><span>Register</span></button>
          </div>
+         
          </div>
       </form>
    </div>
+          <div class="popup" onclick="myFunction()">
+        <a id="question" class="btn btn-floating pulse red"><i class="material-icons">help</i></a>
+        <span class="popuptext" id="myPopup">Login or Register clicking on the + button</span>
+    </div>
 <script>
   $(function() {
 
