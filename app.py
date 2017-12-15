@@ -63,7 +63,7 @@ def login2():
         return redirect(url_for('login'))
 @app.route('/register', methods=['POST', 'GET'])
 def register():
-    error = None
+    error2 = None
     if request.method == 'POST':
         users = mongo.db.users
         user = users.find_one({'username' : request.form['regname']})
@@ -78,9 +78,8 @@ def register():
             users.insert({'username' : request.form['regname'], 'password' : hashpass, 'recipe' : 'null'})
             session['username'] = request.form['regname']
             return redirect(url_for('home'))
-        error="Sorry Username is taken!"
-        return render_template('login.html',error=error)
-
+        error2="Sorry Username is taken!"    
+        return render_template('login.html',error=error2)
 
     if request.method == 'GET':
         return ''
