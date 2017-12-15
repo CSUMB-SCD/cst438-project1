@@ -1,7 +1,10 @@
 Developers Notes:
 Originality we wanted to create a web app that could use optical character recognition(OCR)
 to allow users to create a list of ingredients, however, due to time constraints and a lack
-of satisfaction from developers the idea was scrapped. Instead we allowed users to insert
+of satisfaction from developers the idea was scrapped. The main reason we altered the idea was 
+because the UI would've not been as good because we would end up having a pool of words in which 
+users could pick from to search; clearly, this defeats the purpose of having
+an easier search interface through pictures. Instead we allowed users to insert
 multiple individual ingredients and the app would search based on those.
 
 Prerequisites:
@@ -11,6 +14,7 @@ Prerequisites:
     - mongodb 3.5.*
     - bcrypt
     - PyMongo
+    
 To run, go to terminal where app.py is located and put in:
 	- FLASK_APP=app.py
 	- python -m flask run
