@@ -15,3 +15,5 @@ To run, go to terminal where app.py is located and put in:
 	- FLASK_APP=app.py
 	- python -m flask run
 Click on the link the pops up from the terminal (i.e. http://127.0.0.1:5000/ which is == http://localhost:5000)
+Login using the username nice and password nice
+or Create a new user by pressing the + button.
