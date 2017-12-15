@@ -21,5 +21,6 @@ class FlaskTestCase(unittest.TestCase):
         )
         self.assertIn("", response.data)
 
+
 if __name__ == '__main__':
     unittest.main()
