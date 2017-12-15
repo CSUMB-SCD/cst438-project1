@@ -2,7 +2,7 @@
 {% block body %}
 <script>
 	var recipe = '{{recipe}}';
-	alert(recipe);
+	// alert(recipe);
 	var recipeList=function(){
 		var myTable='<table class="highlight">';
 		myTable+='<thead>';
@@ -15,9 +15,43 @@
 	    myTable+='<tbody>';
 	    var href = '';
 	    var isGood = 0;
-	    alert('inside function!');
+	    // alert('inside function!');
+	    // [u&#39;http://www.nibbledish.com/people/AmyDelight/recipes/bol-renvers-the-original-one&#39;, u&#39;http://allrecipes.com/Recipe/One-Dish-Chicken-Noodles/Detail.aspx&#39;, u&#39;http://www.kraftfoods.com/kf/recipes/iced-cappuccino-54855.aspx&#39;]
 	    for (var i = 0; i < recipe.length; i++){
-	    	alert(recipe.substring(i, i+5));
+	    	// alert(recipe.substring(i, i+6));
+	    	if(recipe[i] == '['){
+	    		//do nothing
+	    	}
+	    	else if(recipe.substring(i, i+6) == "u&#39;"){
+	    		i+=5;
+	    		// alert(recipe.substring(i, i+16))
+	    		// alert(recipe.substring(i, i+2));
+	    	}
+	    	else if(recipe.substring(i, i+6) == "&#39;]"){
+	    		isGood = 1;
+	    		// alert("ALL DONE!");
+	    	}
+	    	else if(recipe.substring(i, i+3) == ";, "){
+	    		i+=2;
+	    		isGood = 1;
+	    	}
+	    	else if(recipe.substring(i, 1) == "'"){
+	    		//do nothing`
+	    	}
+	    	else{
+	    		href+=recipe[i];
+	    	}
+	    	if(isGood == 1){
+	    		var finalHREF = href.replace('&#39','');
+    			myTable+='<tr>';
+			    myTable+='<td>'+'<a href="'+finalHREF+'"></>';
+			    myTable+=finalHREF;
+			    myTable+='</td>';
+			    myTable+='</tr>';
+			    isGood = 0;
+			    // alert("HREF: " + href);
+			    href = '';
+	    	}
 	    	// if()
 	    	// // if(recipe[i] == '[' || recipe[i] == ']'){
 
@@ -32,18 +66,8 @@
 	    	// 	href+=recipe[i];
 	    	// }
 	    	// if(isGood == 1){
-	    	// 	myTable+='<tr>';
-			   //  myTable+='<td>'+'<a href="'+recipe[i]+'"></>';
-			   //  myTable+=recipe;
-			   //  myTable+='</td>';
-			   //  myTable+='</tr>';
-			   //  isGood = 0;
-			   //  href = '';
-	    	}
-		    
+	    	// }
 	    }
-	    myTable+='</tbody>';
-	    myTable+='</table>';
 
 		document.getElementById('recipeList').innerHTML = myTable;
 	}
