@@ -1,8 +1,4 @@
 import unittest
-from test import *
-
-# def test():
-#     suite = unittest.TestLoader().loadTestsFromTestCase(TestStringMethods)
 
 class TestFunctions(unittest.TestCase):
     def test_upper(self):
