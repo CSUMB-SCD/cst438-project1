@@ -1,7 +1,7 @@
 import unittest
 from test import *
 
-def test:
+def test():
     unittest.main()
 
 class TestStringMethods(unittest.TestCase):
