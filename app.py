@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify, request, session, url_for, redirect, flash
-from flask_session import Session
 from urllib2 import Request, urlopen, URLError
 from flask_pymongo import PyMongo
 # import requests
