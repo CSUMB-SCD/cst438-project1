@@ -1,6 +1,5 @@
 {% extends 'userLayout.html' %}
 {% block body %}
-
 <script>
 	var recipe = '{{recipe}}';
 	// alert(recipe);
@@ -13,12 +12,62 @@
 		myTable+='</tr>'
 		myTable+='</thead>';
 
-	    myTable+='<tbody><tr>';
-	    myTable+='<td>'+'<a href="'+recipe+'"></>';
-	    myTable+=recipe;
-	    myTable+='</td>';
-	    myTable+='</tr></tbody>';
-	    myTable+='</table>';
+	    myTable+='<tbody>';
+	    var href = '';
+	    var isGood = 0;
+	    // alert('inside function!');
+	    // [u&#39;http://www.nibbledish.com/people/AmyDelight/recipes/bol-renvers-the-original-one&#39;, u&#39;http://allrecipes.com/Recipe/One-Dish-Chicken-Noodles/Detail.aspx&#39;, u&#39;http://www.kraftfoods.com/kf/recipes/iced-cappuccino-54855.aspx&#39;]
+	    for (var i = 0; i < recipe.length; i++){
+	    	// alert(recipe.substring(i, i+6));
+	    	if(recipe[i] == '['){
+	    		//do nothing
+	    	}
+	    	else if(recipe.substring(i, i+6) == "u&#39;"){
+	    		i+=5;
+	    		// alert(recipe.substring(i, i+16))
+	    		// alert(recipe.substring(i, i+2));
+	    	}
+	    	else if(recipe.substring(i, i+6) == "&#39;]"){
+	    		isGood = 1;
+	    		// alert("ALL DONE!");
+	    	}
+	    	else if(recipe.substring(i, i+3) == ";, "){
+	    		i+=2;
+	    		isGood = 1;
+	    	}
+	    	else if(recipe.substring(i, 1) == "'"){
+	    		//do nothing`
+	    	}
+	    	else{
+	    		href+=recipe[i];
+	    	}
+	    	if(isGood == 1){
+	    		var finalHREF = href.replace('&#39','');
+    			myTable+='<tr>';
+			    myTable+='<td>'+'<a href="'+finalHREF+'"></>';
+			    myTable+=finalHREF;
+			    myTable+='</td>';
+			    myTable+='</tr>';
+			    isGood = 0;
+			    // alert("HREF: " + href);
+			    href = '';
+	    	}
+	    	// if()
+	    	// // if(recipe[i] == '[' || recipe[i] == ']'){
+
+	    	// // }
+	    	// // else if(recipe[i] == 'u' && recipe[i+1] == '\''){
+	    		
+	    	// // }
+	    	// // else if((recipe[i] == '\'' && recipe[i+1] == ']') || (recipe[i] == '\'' && recipe[i+1] == ',') ){
+	    	// // 	isGood = 1;
+	    	// // }
+	    	// else{
+	    	// 	href+=recipe[i];
+	    	// }
+	    	// if(isGood == 1){
+	    	// }
+	    }
 
 		document.getElementById('recipeList').innerHTML = myTable;
 	}
@@ -28,80 +77,5 @@
 </script>
 <div class="card-panel dark grey lighten-2">	
 <div id="recipeList">
-<!-- var myTable = '<table class="highlight">';
-    // myTable+='<caption>Nutrition Facts</caption>';
-    myTable += '<thead>';
-    myTable += '<tr bgcolor="#FF0000">';
-    myTable += '<th>';
-    myTable += 'Item Name';
-    myTable += '</th>';
-    // myTable+='<th>';
-    // myTable+='Item Description';
-    // myTable+='</th>';
-    // myTable+='<th>';
-    // myTable+='updated time';
-    // myTable+='</th>';
-    myTable += '<th>';
-    myTable += 'calories';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'calories from fat';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'Total Fat';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'Saturated Fat';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'Cholesterol';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'Sugars';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'Protein';
-    myTable += '</th>';
-    myTable += '</tr>';
-    myTable += '</thead>';
-
-    myTable += '<tbody>';
-    myTable += '<tr>';
-    myTable += '<td>';
-    myTable += ourData['item_name'];
-    myTable += '</td>';
-    // myTable+='<td>';
-    // myTable+=ourData['item_description'];
-    // myTable+='</td>';
-    // myTable+='<td>';
-    // myTable+=ourData['updated_at'];
-    // myTable+='</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_calories'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_calories_from_fat'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_total_fat'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_saturated_fat'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_cholesterol'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_sugars'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_protein'];
-    myTable += '</td>';
-    myTable += '</tr>';
-    myTable += '</tbody>';
-
-
-    myTable += '</table>';
-    document.getElementById('tablePrint2').innerHTML = myTable; -->
 </div></div>
 {% endblock %}
