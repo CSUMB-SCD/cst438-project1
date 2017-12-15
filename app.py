@@ -135,12 +135,16 @@ def addRecipe():
         print user['recipe']  #null
         print user
         if user['recipe'] == 'null':
-            user['recipe'] = request.form['submit']
-        #else:
+            user['recipe'] = ''
         # print users
-        # users.update_one({user['_id']},{ "$set": { "recipe": request.form['submit']} })
+        dictionaryList = []
+        for i in user['recipe']:
+            dictionaryList.append(i)
+        dictionaryList.append(request.form['submit'])
+        user['recipe'] = dictionaryList
+        # users.update_one({user['_id']},{ "$push": { "recipe": request.form['submit']} })
         # users.update({user['_id']},{ "$set": { "recipe": request.form['submit']} })
-        print user['recipe']
+        # print user['recipe']
         users.save(user)
         return redirect(url_for('home'))
         # return Response(user['recipe']) #this is for GET
@@ -152,16 +156,6 @@ def recipe():
     userRecipe = user['recipe']
     return render_template('userRecipe.html', recipe = userRecipe)
 
-        # users.update_one(
-        # {"username": session['username']},
-        # {
-        # "$set": {
-        #     "link" :
-        # }
-        # }
-    # )
-        # return redirect(url_for('login2'))
-        # return redirect(url_for('results')) # do something
 @app.route('/nutritionApi/v1_1/search/<phrase>',methods=['GET'])
 def nutritionApi(phrase):
     print phrase

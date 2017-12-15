@@ -1,9 +1,8 @@
 {% extends 'userLayout.html' %}
 {% block body %}
-
 <script>
 	var recipe = '{{recipe}}';
-	// alert(recipe);
+	alert(recipe);
 	var recipeList=function(){
 		var myTable='<table class="highlight">';
 		myTable+='<thead>';
@@ -13,11 +12,37 @@
 		myTable+='</tr>'
 		myTable+='</thead>';
 
-	    myTable+='<tbody><tr>';
-	    myTable+='<td>'+'<a href="'+recipe+'"></>';
-	    myTable+=recipe;
-	    myTable+='</td>';
-	    myTable+='</tr></tbody>';
+	    myTable+='<tbody>';
+	    var href = '';
+	    var isGood = 0;
+	    alert('inside function!')
+	    for (var i = 0; i < recipe.length; i++){
+	    	alert(recipe.substring(i, i+5));
+	    	// if()
+	    	// // if(recipe[i] == '[' || recipe[i] == ']'){
+
+	    	// // }
+	    	// // else if(recipe[i] == 'u' && recipe[i+1] == '\''){
+	    		
+	    	// // }
+	    	// // else if((recipe[i] == '\'' && recipe[i+1] == ']') || (recipe[i] == '\'' && recipe[i+1] == ',') ){
+	    	// // 	isGood = 1;
+	    	// // }
+	    	// else{
+	    	// 	href+=recipe[i];
+	    	// }
+	    	// if(isGood == 1){
+	    	// 	myTable+='<tr>';
+			   //  myTable+='<td>'+'<a href="'+recipe[i]+'"></>';
+			   //  myTable+=recipe;
+			   //  myTable+='</td>';
+			   //  myTable+='</tr>';
+			   //  isGood = 0;
+			   //  href = '';
+	    	}
+		    
+	    }
+	    myTable+='</tbody>';
 	    myTable+='</table>';
 
 		document.getElementById('recipeList').innerHTML = myTable;
@@ -28,80 +53,5 @@
 </script>
 <div class="card-panel dark grey lighten-2">	
 <div id="recipeList">
-<!-- var myTable = '<table class="highlight">';
-    // myTable+='<caption>Nutrition Facts</caption>';
-    myTable += '<thead>';
-    myTable += '<tr bgcolor="#FF0000">';
-    myTable += '<th>';
-    myTable += 'Item Name';
-    myTable += '</th>';
-    // myTable+='<th>';
-    // myTable+='Item Description';
-    // myTable+='</th>';
-    // myTable+='<th>';
-    // myTable+='updated time';
-    // myTable+='</th>';
-    myTable += '<th>';
-    myTable += 'calories';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'calories from fat';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'Total Fat';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'Saturated Fat';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'Cholesterol';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'Sugars';
-    myTable += '</th>';
-    myTable += '<th>';
-    myTable += 'Protein';
-    myTable += '</th>';
-    myTable += '</tr>';
-    myTable += '</thead>';
-
-    myTable += '<tbody>';
-    myTable += '<tr>';
-    myTable += '<td>';
-    myTable += ourData['item_name'];
-    myTable += '</td>';
-    // myTable+='<td>';
-    // myTable+=ourData['item_description'];
-    // myTable+='</td>';
-    // myTable+='<td>';
-    // myTable+=ourData['updated_at'];
-    // myTable+='</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_calories'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_calories_from_fat'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_total_fat'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_saturated_fat'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_cholesterol'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_sugars'];
-    myTable += '</td>';
-    myTable += '<td>';
-    myTable += ourData['nf_protein'];
-    myTable += '</td>';
-    myTable += '</tr>';
-    myTable += '</tbody>';
-
-
-    myTable += '</table>';
-    document.getElementById('tablePrint2').innerHTML = myTable; -->
 </div></div>
 {% endblock %}
