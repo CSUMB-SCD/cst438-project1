@@ -12,6 +12,7 @@ class FlaskTestCase(unittest.TestCase):
         tester=app.test_client(self)
         response=tester.get("/",content_type="html/text")
         self.assertTrue("LOGIN"in response.data)
+        #check login works correctly
     def test_correct_login(self):
         tester=app.test_client(self)
         response=tester.post(
@@ -20,6 +21,24 @@ class FlaskTestCase(unittest.TestCase):
         follow_redirects=True
         )
         self.assertIn("", response.data)
+        #tests incorrect login
+    def test_incorrect_login(self):
+        tester=app.test_client(self)
+        response=tester.post(
+            "/",
+        data=dict(username="wrong",password="wrong"),
+        follow_redirects=True
+        )
+        self.assertIn(b"", response.data)
+        #test logout function
+    def test_logout(self):
+        tester=app.test_client(self)
+        response=tester.post(
+        '/home',
+        data=dict(username="nice",password="nice"),
+        follow_redirects=True
+        )
+        self.assertIn(b"",response.data)
 
 
 if __name__ == '__main__':
